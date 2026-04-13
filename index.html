@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KERAMO BUILD — Керамогранит өндірісіне инвестиция</title>
+  <meta name="description" content="Астанада керамогранит өндірісіне инвестиция салыңыз. Инвестиция қайтарымы — 25 ай. Пайданың 30% — ай сайын.">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg:       '#141118',
+            s1:       '#1A1722',
+            s2:       '#201D2B',
+            s3:       '#272335',
+            copper:   '#C5835E',
+            copper2:  '#D9A07A',
+            copper3:  '#E8C4A8',
+            cream:    '#E8DCC8',
+            cream2:   '#F5EFE4',
+            warm:     '#9B8F80',
+            muted:    '#6B6175',
+          },
+          fontFamily: {
+            serif: ['"DM Serif Display"', 'Georgia', 'serif'],
+            sans:  ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: auto; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #141118;
+      color: #E8DCC8;
+      overflow-x: hidden;
+    }
+    body.loading { overflow: hidden; height: 100vh; }
+    ::selection { background: rgba(197,131,94,0.3); color: #fff; }
+
+    /* ===== PRELOADER ===== */
+    #preloader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #141118;
+      display: flex; align-items: center; justify-content: center; flex-direction: column;
+    }
+    .pre-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem,5vw,3.5rem); color: #E8DCC8;
+      letter-spacing: 0.04em; opacity: 0; transform: scale(0.85);
+    }
+    .pre-logo span { color: #C5835E; }
+    .pre-line {
+      width: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, #C5835E, #E8DCC8, #C5835E, transparent);
+      margin-top: 20px;
+    }
+    .pre-ring {
+      position: absolute; border-radius: 50%;
+      border: 1px solid rgba(197,131,94,0.1); opacity: 0;
+    }
+    .pre-flash {
+      position: absolute; inset: 0;
+      background: radial-gradient(circle, rgba(197,131,94,0.25) 0%, transparent 60%);
+      opacity: 0;
+    }
+    .wipe-panel {
+      position: fixed; top: 0; width: 50%; height: 100%;
+      z-index: 9998; background: #C5835E;
+    }
+    .wipe-panel:nth-child(1) { left: 0; transform: scaleX(0); transform-origin: left; }
+    .wipe-panel:nth-child(2) { right: 0; left: auto; transform: scaleX(0); transform-origin: right; }
+
+    /* ===== TEXTURE ===== */
+    .noise::before {
+      content: ''; position: absolute; inset: 0; opacity: 0.015;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: -1;
+    }
+
+    /* ===== WARM GRADIENT LINE ===== */
+    .warm-line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(197,131,94,0.4), transparent);
+    }
+
+    /* ===== GLASS ===== */
+    .glass {
+      background: rgba(232,220,200,0.03);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(232,220,200,0.06);
+    }
+    .glass-warm {
+      background: rgba(197,131,94,0.04);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(197,131,94,0.1);
+    }
+
+    /* ===== CARD ===== */
+    .card-elegant {
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card-elegant:hover {
+      transform: translateY(-6px);
+      border-color: rgba(197,131,94,0.2);
+      box-shadow: 0 30px 60px -20px rgba(0,0,0,0.4), 0 0 40px rgba(197,131,94,0.06);
+    }
+
+    /* ===== BUTTON ===== */
+    .btn-warm {
+      position: relative; overflow: hidden;
+      background: #C5835E;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-warm::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+      transform: translateX(-100%) skewX(-15deg); transition: transform 0.6s ease;
+    }
+    .btn-warm:hover::after { transform: translateX(100%) skewX(-15deg); }
+    .btn-warm:hover {
+      background: #D9A07A;
+      box-shadow: 0 12px 40px rgba(197,131,94,0.25);
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(232,220,200,0.15);
+      transition: all 0.4s ease;
+    }
+    .btn-outline:hover {
+      border-color: rgba(197,131,94,0.3);
+      color: #C5835E;
+    }
+
+    /* ===== INPUT ===== */
+    .input-warm:focus {
+      border-color: #C5835E !important;
+      box-shadow: 0 0 0 3px rgba(197,131,94,0.1);
+      outline: none;
+    }
+
+    /* ===== HEADER ===== */
+    #header {
+      --h-bg: transparent;
+      --h-border: transparent;
+      --h-shadow: none;
+      background: var(--h-bg);
+      border-bottom: 1px solid var(--h-border);
+      box-shadow: var(--h-shadow);
+    }
+    .header-solid {
+      --h-bg: rgba(20,17,24,0.72) !important;
+      --h-border: rgba(197,131,94,0.08) !important;
+      --h-shadow: 0 4px 30px rgba(0,0,0,0.25), 0 1px 0 rgba(197,131,94,0.04) !important;
+      backdrop-filter: blur(24px) saturate(1.4);
+      -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    }
+    #header .header-inner {
+      transition: height 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+    .header-solid .header-inner {
+      height: 64px !important;
+    }
+    /* Logo */
+    .header-logo {
+      position: relative;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem;
+      letter-spacing: 0.06em;
+      color: #E8DCC8;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .header-logo::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: linear-gradient(90deg, #C5835E, #D9A07A);
+      transition: width 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+    .header-logo:hover::after { width: 100%; }
+    /* Nav */
+    .header-nav {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: rgba(232,220,200,0.04);
+      border: 1px solid rgba(232,220,200,0.06);
+      border-radius: 100px;
+      padding: 4px;
+    }
+    @media (min-width: 768px) { .header-nav { display: flex; } }
+    .header-nav a {
+      position: relative;
+      padding: 7px 18px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(155,143,128,0.7);
+      text-decoration: none;
+      transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
+      letter-spacing: 0.02em;
+    }
+    .header-nav a:hover {
+      color: #E8DCC8;
+      background: rgba(232,220,200,0.06);
+    }
+    /* CTA glow */
+    .header-cta {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #C5835E 0%, #A8694B 100%);
+      color: #fff;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 10px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
+      overflow: hidden;
+    }
+    .header-cta::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(217,160,122,0.5), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .header-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(197,131,94,0.3), 0 2px 8px rgba(197,131,94,0.2);
+    }
+    .header-cta:hover::before { opacity: 1; }
+    .header-cta span { position: relative; z-index: 1; }
+    .header-cta svg { position: relative; z-index: 1; }
+    /* Mobile menu toggle */
+    .header-burger {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(232,220,200,0.04); border: 1px solid rgba(232,220,200,0.06);
+      cursor: pointer; transition: all 0.3s ease;
+    }
+    .header-burger:hover { background: rgba(232,220,200,0.08); }
+    @media (min-width: 768px) { .header-burger { display: none; } }
+    .header-burger span {
+      display: block; width: 18px; height: 1.5px; background: #E8DCC8;
+      position: relative; transition: all 0.3s ease;
+    }
+    .header-burger span::before, .header-burger span::after {
+      content: ''; position: absolute; left: 0; width: 100%; height: 1.5px;
+      background: #E8DCC8; transition: all 0.3s ease;
+    }
+    .header-burger span::before { top: -6px; }
+    .header-burger span::after { top: 6px; }
+    .header-burger.open span { background: transparent; }
+    .header-burger.open span::before { top: 0; transform: rotate(45deg); }
+    .header-burger.open span::after { top: 0; transform: rotate(-45deg); }
+    /* Mobile dropdown */
+    .header-mobile-menu {
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: rgba(20,17,24,0.95); backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(197,131,94,0.08);
+      padding: 16px 24px 24px;
+      display: flex; flex-direction: column; gap: 4px;
+      transform: translateY(-8px); opacity: 0; pointer-events: none;
+      transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
+    }
+    .header-mobile-menu.open {
+      transform: translateY(0); opacity: 1; pointer-events: auto;
+    }
+    .header-mobile-menu a {
+      padding: 12px 16px; border-radius: 10px; font-size: 15px;
+      font-weight: 500; color: rgba(155,143,128,0.8); text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .header-mobile-menu a:hover {
+      color: #E8DCC8; background: rgba(232,220,200,0.06);
+    }
+
+    /* ===== DIVIDER ORNAMENT ===== */
+    .ornament {
+      display: flex; align-items: center; gap: 16px; justify-content: center;
+    }
+    .ornament::before, .ornament::after {
+      content: '';
+      height: 1px; width: 60px;
+      background: linear-gradient(90deg, transparent, rgba(197,131,94,0.3));
+    }
+    .ornament::after {
+      background: linear-gradient(90deg, rgba(197,131,94,0.3), transparent);
+    }
+
+    /* ===== PROGRESS ===== */
+    .progress-bar {
+      position: fixed; top: 0; left: 0; height: 2px; z-index: 60;
+      background: linear-gradient(90deg, #C5835E, #E8DCC8);
+      transform-origin: left; transform: scaleX(0);
+    }
+
+    /* ===== COUNTER ===== */
+    .counter-up { font-variant-numeric: tabular-nums; }
+
+    /* ===== SECTIONS ===== */
+    .stack-section { position: relative; }
+
+    /* ===== SUBTLE FLOAT ===== */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(1deg); }
+    }
+    .float-slow { animation: floatSlow 12s ease-in-out infinite; }
+
+    /* ===== SCROLL INDICATOR ===== */
+    @keyframes scrollDown {
+      0%, 100% { opacity: 0; transform: translateY(-4px); }
+      50% { opacity: 1; transform: translateY(4px); }
+    }
+
+    /* ===== ROI GLOW ===== */
+    .roi-card {
+      position: relative;
+    }
+    .roi-card::before {
+      content: ''; position: absolute; inset: -1px; border-radius: inherit;
+      background: linear-gradient(135deg, rgba(197,131,94,0.3), transparent 50%, rgba(232,220,200,0.15));
+      z-index: -1;
+    }
+    /* ===== LANG SWITCHER ===== */
+    .lang-switch {
+      display: flex; gap: 2px; background: rgba(232,220,200,0.05);
+      border-radius: 100px; padding: 3px; border: 1px solid rgba(232,220,200,0.07);
+    }
+    .lang-btn {
+      padding: 5px 14px; border-radius: 100px; font-size: 11px; font-weight: 700;
+      color: rgba(155,143,128,0.5); cursor: pointer; transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .lang-btn.active {
+      background: linear-gradient(135deg, #C5835E, #A8694B); color: #fff;
+      box-shadow: 0 2px 8px rgba(197,131,94,0.25);
+    }
+    .lang-btn:not(.active):hover { color: #E8DCC8; background: rgba(232,220,200,0.06); }
+  </style>
+</head>
+<body class="loading">
+
+  <!-- Progress -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="pre-ring" style="width:150px;height:150px;"></div>
+    <div class="pre-ring" style="width:250px;height:250px;"></div>
+    <div class="pre-ring" style="width:380px;height:380px;"></div>
+    <div class="pre-logo">KERAMO <span>BUILD</span></div>
+    <div class="pre-line"></div>
+    <div class="pre-flash"></div>
+  </div>
+  <div class="wipe-panel"></div>
+  <div class="wipe-panel"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header id="header" class="fixed top-0 left-0 right-0 z-50" style="transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;">
+    <div class="header-inner max-w-6xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
+      <!-- Logo -->
+      <a href="#" class="header-logo">
+        KERAMO <span class="text-copper">BUILD</span>
+      </a>
+
+      <!-- Nav pill -->
+      <nav class="header-nav">
+        <a href="#heroSection" data-i18n="navMarket">Нарық</a>
+        <a href="#process" data-i18n="navProcess">Үдеріс</a>
+        <a href="#offer" data-i18n="navOffer">Ұсыныс</a>
+        <a href="#investor" data-i18n="navInvestor">Инвестор</a>
+      </nav>
+
+      <!-- Right group -->
+      <div class="flex items-center gap-3">
+        <div class="lang-switch">
+          <span class="lang-btn active" data-lang="kk">ҚАЗ</span>
+          <span class="lang-btn" data-lang="ru">РУС</span>
+        </div>
+        <a href="#contact" class="header-cta hidden md:inline-flex">
+          <span data-i18n="headerCta">Өтінім қалдыру</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/></svg>
+        </a>
+        <div class="header-burger md:hidden" onclick="this.classList.toggle('open');document.getElementById('mobileMenu').classList.toggle('open')">
+          <span></span>
+        </div>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="header-mobile-menu md:hidden">
+      <a href="#heroSection" data-i18n="navMarket" onclick="closeMobileMenu()">Нарық</a>
+      <a href="#process" data-i18n="navProcess" onclick="closeMobileMenu()">Үдеріс</a>
+      <a href="#offer" data-i18n="navOffer" onclick="closeMobileMenu()">Ұсыныс</a>
+      <a href="#investor" data-i18n="navInvestor" onclick="closeMobileMenu()">Инвестор</a>
+      <a href="#contact" class="mt-2 text-center py-3 rounded-xl font-semibold text-sm" style="background:linear-gradient(135deg,#C5835E,#A8694B);color:#fff" data-i18n="headerCta" onclick="closeMobileMenu()">Өтінім қалдыру</a>
+    </div>
+  </header>
+
+  <!-- ================================================================ -->
+  <!-- HERO                                                             -->
+  <!-- ================================================================ -->
+  <section id="heroSection" class="stack-section min-h-screen flex items-center relative bg-bg overflow-hidden">
+    <!-- Hero background image -->
+    <div class="absolute top-[10%] right-0 bottom-[10%] w-[55%] z-0">
+      <img src="logo-hero-fon3.png" alt="" class="w-full h-full object-cover object-right rounded-l-3xl" />
+      <div class="absolute inset-0" style="background: linear-gradient(to right, #141118 0%, rgba(20,17,24,0.4) 40%, transparent 100%);"></div>
+      <div class="absolute inset-0" style="background: linear-gradient(to top, #141118 0%, transparent 25%);"></div>
+      <div class="absolute inset-0" style="background: linear-gradient(to bottom, #141118 0%, transparent 25%);"></div>
+    </div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-6 lg:px-10 py-32 md:py-0 w-full">
+      <div class="max-w-3xl">
+        <!-- Badge -->
+        <div id="heroBadge" class="inline-flex items-center gap-3 mb-10" style="visibility:hidden;">
+          <div class="w-8 h-[1px] bg-copper"></div>
+          <span class="text-copper text-xs font-semibold uppercase tracking-[0.3em]" data-i18n="heroBadge">Инвестициялық ұсыныс</span>
+        </div>
+
+        <!-- Title -->
+        <h1 id="heroTitle" class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[4.2rem] text-cream2 leading-[1.12] mb-8" style="visibility:hidden;" data-i18n="heroTitle">
+          Астанада <span class="text-copper italic">керамогранит</span> өндірісіне&nbsp;инвестиция салыңыз
+        </h1>
+
+        <!-- Sub -->
+        <p id="heroSub" class="text-warm text-lg md:text-xl leading-relaxed mb-14 max-w-xl" style="font-weight:300; visibility:hidden;" data-i18n="heroSub">
+          Толық цикл: сату, кесу, монтаждау.<br>
+          25&nbsp;айда қайтарым. Содан кейін пайданың 30% — мәңгілікке.
+        </p>
+
+        <!-- Metrics -->
+        <div id="heroMetrics" class="flex flex-wrap gap-10 md:gap-16 mb-14" style="visibility:hidden;">
+          <div>
+            <span class="block font-serif text-4xl md:text-5xl text-cream2 counter-up" data-target="35" data-suffix=" млн ₸">0</span>
+            <span class="text-warm/50 text-xs uppercase tracking-[0.2em] mt-1 block" data-i18n="metricInvest">инвестиция</span>
+          </div>
+          <div class="w-[1px] h-16 bg-cream/10 hidden md:block"></div>
+          <div>
+            <span class="block font-serif text-4xl md:text-5xl text-cream2 counter-up" data-target="25" data-suffix-kk=" ай" data-suffix-ru=" мес" data-suffix=" ай">0</span>
+            <span class="text-warm/50 text-xs uppercase tracking-[0.2em] mt-1 block" data-i18n="metricReturn">қайтарым</span>
+          </div>
+          <div class="w-[1px] h-16 bg-cream/10 hidden md:block"></div>
+          <div>
+            <span class="block font-serif text-4xl md:text-5xl text-cream2 counter-up" data-target="30" data-suffix="%">0</span>
+            <span class="text-warm/50 text-xs uppercase tracking-[0.2em] mt-1 block" data-i18n="metricProfit">пайда</span>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div id="heroCTA" class="flex flex-col sm:flex-row gap-4" style="visibility:hidden;">
+          <a href="#contact" class="btn-warm inline-flex items-center justify-center gap-3 text-white font-semibold text-base px-10 py-4 rounded-lg">
+            <span data-i18n="heroCtaMain">Толығырақ білу</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/></svg>
+          </a>
+          <a href="#market" class="btn-outline inline-flex items-center justify-center gap-2 text-warm font-medium px-8 py-4 rounded-lg text-base">
+            <span data-i18n="heroCtaMarket">Нарық туралы</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10 opacity-50">
+      <div class="w-[1px] h-10 overflow-hidden">
+        <div class="w-full h-full bg-copper" style="animation: scrollDown 2s ease-in-out infinite;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="relative py-5 bg-s1">
+    <div class="ornament">
+      <svg class="w-3 h-3 text-copper/40" viewBox="0 0 12 12"><rect x="3" y="3" width="6" height="6" transform="rotate(45 6 6)" fill="currentColor"/></svg>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!-- MARKET                                                           -->
+  <!-- ================================================================ -->
+  <section id="market" class="stack-section relative noise py-28 md:py-36 overflow-hidden bg-s1">
+    <div class="relative z-10 max-w-6xl mx-auto px-6 lg:px-10">
+      <!-- Header -->
+      <div class="mb-20">
+        <div class="flex items-center gap-4 mb-5">
+          <div class="w-0 h-[1px] bg-copper section-line"></div>
+          <span class="text-copper text-xs font-semibold uppercase tracking-[0.3em]" data-i18n="marketLabel">Нарық талдауы</span>
+        </div>
+        <h2 class="section-title font-serif text-3xl md:text-5xl text-cream2 leading-tight" data-i18n="marketTitle">Жыл сайын <br><span class="text-copper italic">өсіп келе жатқан нарық</span>
+        </h2>
+      </div>
+
+      <!-- Cards -->
+      <div class="grid md:grid-cols-3 gap-5">
+        <div class="market-card glass card-elegant rounded-2xl p-8 lg:p-10 group cursor-default">
+          <div class="flex items-center justify-between mb-8">
+            <div class="w-12 h-12 rounded-xl bg-copper/10 flex items-center justify-center group-hover:bg-copper/20 transition-all duration-500">
+              <svg class="w-6 h-6 text-copper" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg>
+            </div>
+            <span class="font-serif text-5xl text-cream/[0.05] group-hover:text-copper/10 transition-colors duration-500">01</span>
+          </div>
+          <h3 class="font-serif text-xl lg:text-2xl text-cream2 mb-3" data-i18n="market1Title">Астана бәрінен көп салады</h3>
+          <p class="text-warm/70 leading-relaxed text-[15px] mb-8" data-i18n="market1Desc">Жылына 38&nbsp;000+ жаңа пәтер. Керамогранит нарығы — жылына <strong class="text-cream/80 font-medium">15,6 млрд теңге</strong>.</p>
+          <div class="pt-6 border-t border-cream/[0.06]">
+            <span class="font-serif text-3xl text-copper">38K+</span>
+            <span class="text-warm/40 text-sm ml-2" data-i18n="market1Stat">пәтер / жыл</span>
+          </div>
+        </div>
+
+        <div class="market-card glass card-elegant rounded-2xl p-8 lg:p-10 group cursor-default">
+          <div class="flex items-center justify-between mb-8">
+            <div class="w-12 h-12 rounded-xl bg-copper/10 flex items-center justify-center group-hover:bg-copper/20 transition-all duration-500">
+              <svg class="w-6 h-6 text-copper" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+            </div>
+            <span class="font-serif text-5xl text-cream/[0.05] group-hover:text-copper/10 transition-colors duration-500">02</span>
+          </div>
+          <h3 class="font-serif text-xl lg:text-2xl text-cream2 mb-3" data-i18n="market2Title">Тауашалық бос</h3>
+          <p class="text-warm/70 leading-relaxed text-[15px] mb-8" data-i18n="market2Desc">Дүкендер монтаждамайды. Шеберлер сатпайды. <strong class="text-cream/80 font-medium">KERAMO BUILD</strong> — толық циклді жалғыз компания.</p>
+          <div class="pt-6 border-t border-cream/[0.06]">
+            <span class="font-serif text-3xl text-copper">3 в 1</span>
+            <span class="text-warm/40 text-sm ml-2" data-i18n="market2Stat">толық цикл</span>
+          </div>
+        </div>
+
+        <div class="market-card glass card-elegant rounded-2xl p-8 lg:p-10 group cursor-default">
+          <div class="flex items-center justify-between mb-8">
+            <div class="w-12 h-12 rounded-xl bg-copper/10 flex items-center justify-center group-hover:bg-copper/20 transition-all duration-500">
+              <svg class="w-6 h-6 text-copper" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/></svg>
+            </div>
+            <span class="font-serif text-5xl text-cream/[0.05] group-hover:text-copper/10 transition-colors duration-500">03</span>
+          </div>
+          <h3 class="font-serif text-xl lg:text-2xl text-cream2 mb-3" data-i18n="market3Title">Сұраныс төмендемейді</h3>
+          <p class="text-warm/70 leading-relaxed text-[15px] mb-8" data-i18n="market3Desc">Жөндеу — сәнділік емес. <strong class="text-cream/80 font-medium">Өңделмеген</strong> жаңа үйлер — клиент өзі келеді.</p>
+          <div class="pt-6 border-t border-cream/[0.06]">
+            <span class="font-serif text-3xl text-copper">100%</span>
+            <span class="text-warm/40 text-sm ml-2" data-i18n="market3Stat">тұрақты сұраныс</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================ -->
+  <!-- PROCESS                                                          -->
+  <!-- ================================================================ -->
+  <section id="process" class="stack-section relative noise py-28 md:py-36 overflow-hidden bg-s2">
+    <div class="relative z-10 max-w-6xl mx-auto px-6 lg:px-10">
+      <div class="mb-20">
+        <div class="flex items-center gap-4 mb-5">
+          <div class="w-0 h-[1px] bg-copper section-line"></div>
+          <span class="text-copper text-xs font-semibold uppercase tracking-[0.3em]" data-i18n="processLabel">Бизнес-модель</span>
+        </div>
+        <h2 class="section-title font-serif text-3xl md:text-5xl text-cream2 leading-tight" data-i18n="processTitle">
+          Қарапайым модель.<br><span class="text-copper italic">Түсінікті ақша.</span>
+        </h2>
+      </div>
+
+      <!-- Steps -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-20">
+        <div class="process-card glass card-elegant rounded-xl p-6 group">
+          <div class="w-10 h-10 bg-copper text-white rounded-lg flex items-center justify-center font-bold text-sm mb-4 group-hover:shadow-[0_8px_24px_rgba(197,131,94,0.25)] transition-shadow duration-500">1</div>
+          <p class="text-warm/70 text-sm leading-relaxed" data-i18n="step1">Клиент Instagram-да жарнаманы көріп, өтінім қалдырады</p>
+        </div>
+        <div class="process-card glass card-elegant rounded-xl p-6 group">
+          <div class="w-10 h-10 bg-copper text-white rounded-lg flex items-center justify-center font-bold text-sm mb-4 group-hover:shadow-[0_8px_24px_rgba(197,131,94,0.25)] transition-shadow duration-500">2</div>
+          <p class="text-warm/70 text-sm leading-relaxed" data-i18n="step2">Менеджер тегін өлшемге шығады</p>
+        </div>
+        <div class="process-card glass card-elegant rounded-xl p-6 group">
+          <div class="w-10 h-10 bg-copper text-white rounded-lg flex items-center justify-center font-bold text-sm mb-4 group-hover:shadow-[0_8px_24px_rgba(197,131,94,0.25)] transition-shadow duration-500">3</div>
+          <p class="text-warm/70 text-sm leading-relaxed" data-i18n="step3">Клиент шоурумда материал таңдайды (80&nbsp;м&sup2;)</p>
+        </div>
+        <div class="process-card glass card-elegant rounded-xl p-6 group">
+          <div class="w-10 h-10 bg-copper text-white rounded-lg flex items-center justify-center font-bold text-sm mb-4 group-hover:shadow-[0_8px_24px_rgba(197,131,94,0.25)] transition-shadow duration-500">4</div>
+          <p class="text-warm/70 text-sm leading-relaxed" data-i18n="step4">Цех объектіге керамогранит кеседі (75&nbsp;м&sup2;)</p>
+        </div>
+        <div class="process-card glass card-elegant rounded-xl p-6 sm:col-span-2 lg:col-span-1 group">
+          <div class="w-10 h-10 bg-copper text-white rounded-lg flex items-center justify-center font-bold text-sm mb-4 group-hover:shadow-[0_8px_24px_rgba(197,131,94,0.25)] transition-shadow duration-500">5</div>
+          <p class="text-warm/70 text-sm leading-relaxed" data-i18n="step5">Бригада монтаждайды. Клиент қалдықты төлейді.</p>
+        </div>
+      </div>
+
+      <!-- Photo: showroom / workshop -->
+      <div class="grid md:grid-cols-2 gap-5 mb-20">
+        <div class="rounded-2xl overflow-hidden border border-cream/[0.06] aspect-[4/3] bg-s3 flex items-center justify-center">
+          <img src="images/showroom.png" alt="Шоурум KERAMO BUILD" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='<div class=\'text-center p-8\'><svg class=\'w-12 h-12 text-copper/30 mx-auto mb-3\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-sm\'>showroom.png</p></div>'" />
+        </div>
+        <div class="rounded-2xl overflow-hidden border border-cream/[0.06] aspect-[4/3] bg-s3 flex items-center justify-center">
+          <img src="images/workshop.png" alt="Цех нарезки керамогранита" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='<div class=\'text-center p-8\'><svg class=\'w-12 h-12 text-copper/30 mx-auto mb-3\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-sm\'>workshop.png</p></div>'" />
+        </div>
+      </div>
+
+      <!-- Metrics -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
+        <div class="metric-card bg-s2 rounded-xl p-8 text-center border border-cream/[0.04] hover:border-copper/15 transition-all duration-500 hover:-translate-y-1">
+          <span class="block font-serif text-3xl md:text-4xl text-cream2 mb-2 counter-up" data-target="320" data-suffix=" 000 ₸">0</span>
+          <span class="text-warm/40 text-xs font-semibold uppercase tracking-[0.2em]" data-i18n="metricAvgCheck">Орташа чек</span>
+        </div>
+        <div class="metric-card bg-s2 rounded-xl p-8 text-center border border-cream/[0.04] hover:border-copper/15 transition-all duration-500 hover:-translate-y-1">
+          <span class="block font-serif text-3xl md:text-4xl text-cream2 mb-2 counter-up" data-target="47" data-suffix="%">0</span>
+          <span class="text-warm/40 text-xs font-semibold uppercase tracking-[0.2em]" data-i18n="metricMargin">Тапсырыс маржасы</span>
+        </div>
+        <div class="metric-card bg-s2 rounded-xl p-8 text-center border border-cream/[0.04] hover:border-copper/15 transition-all duration-500 hover:-translate-y-1">
+          <span class="block font-serif text-3xl md:text-4xl text-cream2 mb-2 counter-up" data-target="40" data-suffix-kk=" тапсырыс" data-suffix-ru=" заказов" data-suffix=" тапсырыс">0</span>
+          <span class="text-warm/40 text-xs font-semibold uppercase tracking-[0.2em]" data-i18n="metricGoal">Айлық мақсат</span>
+        </div>
+      </div>
+
+      <p class="process-text text-center text-warm/60 max-w-xl mx-auto leading-relaxed text-[15px]" data-i18n="processDesc">
+        Шоурум — сату құралы: клиент үлгілерді көреді, сенеді, алдын ала төлейді. Цех жақын — делдалсыз тапсырыс бойынша кесу.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================================================================ -->
+  <!-- OFFER                                                            -->
+  <!-- ================================================================ -->
+  <section id="offer" class="stack-section relative noise py-28 md:py-36 overflow-hidden bg-s1">
+    <div class="relative z-10 max-w-5xl mx-auto px-6 lg:px-10">
+      <!-- Header -->
+      <div class="mb-16 text-center">
+        <div class="ornament mb-6">
+          <svg class="w-3 h-3 text-copper/40" viewBox="0 0 12 12"><rect x="3" y="3" width="6" height="6" transform="rotate(45 6 6)" fill="currentColor"/></svg>
+        </div>
+        <h2 class="offer-title font-serif text-3xl md:text-5xl text-cream2 leading-tight mb-6" data-i18n="offerTitle">
+          Бір рет инвестиция сал —<br><span class="text-copper italic">өмір бойы табыс ал</span>
+        </h2>
+        <p class="text-warm/60 text-base md:text-lg leading-relaxed max-w-2xl mx-auto" data-i18n="offerSub">
+          Астанадағы өндірістік бизнестің компания пайдасының 30% үлесімен тең іесі бол. Біз барлық жұмысты жасаймыз. Сен ақша аласың.
+        </p>
+      </div>
+
+      <!-- Text blocks -->
+      <div class="grid md:grid-cols-2 gap-8 mb-16">
+        <div class="offer-text glass card-elegant rounded-2xl p-8">
+          <div class="w-10 h-10 bg-copper/10 rounded-lg flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-copper" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h3 class="font-serif text-xl text-cream2 mb-3" data-i18n="offerBlock1Title">Ұсыныс</h3>
+          <p class="text-warm/70 text-[15px] leading-relaxed" data-i18n="offerBlock1Desc">
+            <strong class="text-cream font-medium">35 000 000 теңге</strong> бір рет сал — және KERAMO BUILD-тың 30% үлесімен толық құқықты тең іесі бол. Салымды қайтарған соң тоқсан сайын пайда аласың. Мәңгілікке.
+          </p>
+        </div>
+        <div class="offer-text glass card-elegant rounded-2xl p-8">
+          <div class="w-10 h-10 bg-copper/10 rounded-lg flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-copper" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"/></svg>
+          </div>
+          <h3 class="font-serif text-xl text-cream2 mb-3" data-i18n="offerBlock2Title">Пассивтілік</h3>
+          <p class="text-warm/70 text-[15px] leading-relaxed" data-i18n="offerBlock2Desc">
+            Саған өндірісті түсіну, адам жалдау немесе тапсырыстарды бақылау қажет емес. Операциялық команда бәрін өзіне алады. Сенің міндетің — бүгін бір шешім.
+          </p>
+        </div>
+        <div class="offer-text glass card-elegant rounded-2xl p-8">
+          <div class="w-10 h-10 bg-copper/10 rounded-lg flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-copper" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/></svg>
+          </div>
+          <h3 class="font-serif text-xl text-cream2 mb-3" data-i18n="offerBlock3Title">Сандар</h3>
+          <p class="text-warm/70 text-[15px] leading-relaxed" data-i18n="offerBlock3Desc">
+            Компанияның 26-шы айдан бастап күтілетін пайдасы — айына <strong class="text-cream font-medium">2 500 000 ₸</strong>-ден. Сенің үлесің (30%) — айына <strong class="text-cream font-medium">750 000 ₸</strong>-ден, немесе тоқсанына <strong class="text-cream font-medium">2 250 000 ₸</strong>-ден. Бұл нақты пассивті табыс.
+          </p>
+        </div>
+        <div class="offer-text glass card-elegant rounded-2xl p-8">
+          <div class="w-10 h-10 bg-copper/10 rounded-lg flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-copper" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+          </div>
+          <h3 class="font-serif text-xl text-cream2 mb-3" data-i18n="offerBlock4Title">Қауіпсіздік</h3>
+          <p class="text-warm/70 text-[15px] leading-relaxed" data-i18n="offerBlock4Desc">
+            Мәміле заңды түрде ресімделеді: шарт, компаниядағы үлес, ашық есеп. Алдымен салған ақшаңды толық қайтарасың — сонда ғана пайда бөлінеді. Сенің капиталың қорғалған.
+          </p>
+        </div>
+      </div>
+
+      <!-- 3 advantages -->
+      <div class="grid sm:grid-cols-3 gap-5 mb-16">
+        <div class="offer-adv text-center p-6">
+          <div class="w-14 h-14 bg-copper/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <svg class="w-7 h-7 text-copper" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h4 class="font-serif text-lg text-cream2 mb-2" data-i18n="offerAdv1Title">Бір реттік инвестиция</h4>
+          <p class="text-warm/50 text-sm" data-i18n="offerAdv1Desc">Бір рет саласың — табыс мерзімсіз түседі</p>
+        </div>
+        <div class="offer-adv text-center p-6">
+          <div class="w-14 h-14 bg-copper/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <svg class="w-7 h-7 text-copper" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+          </div>
+          <h4 class="font-serif text-lg text-cream2 mb-2" data-i18n="offerAdv2Title">Заңдық қорғау</h4>
+          <p class="text-warm/50 text-sm" data-i18n="offerAdv2Desc">Шарт, ТОО-дағы үлес, ашық есептілік</p>
+        </div>
+        <div class="offer-adv text-center p-6">
+          <div class="w-14 h-14 bg-copper/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <svg class="w-7 h-7 text-copper" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/></svg>
+          </div>
+          <h4 class="font-serif text-lg text-cream2 mb-2" data-i18n="offerAdv3Title">Пассивті табыс</h4>
+          <p class="text-warm/50 text-sm" data-i18n="offerAdv3Desc">Салымды қайтарған соң айына 750 000 ₸-ден</p>
+        </div>
+      </div>
+
+      <!-- Key number -->
+      <div class="offer-key bg-s2 rounded-2xl p-12 md:p-16 text-center mb-12 border border-cream/[0.04]">
+        <p class="font-serif text-5xl md:text-7xl text-copper mb-4 tracking-tight">30%</p>
+        <p class="font-serif text-xl md:text-2xl text-cream2 mb-2" data-i18n="offerKeyTitle">компания пайдасы — сенікі.</p>
+        <p class="font-serif text-lg text-copper italic" data-i18n="offerKeySub">Әр тоқсан. Мәңгілікке.</p>
+      </div>
+
+      <!-- CTA -->
+      <div class="offer-cta text-center">
+        <a href="#contact" class="btn-warm inline-flex items-center justify-center gap-3 text-white font-semibold text-lg px-12 py-5 rounded-xl">
+          <span data-i18n="offerCta">Тең іесі болғым келеді</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/></svg>
+        </a>
+        <p class="text-warm/30 text-xs mt-5 max-w-sm mx-auto" data-i18n="offerCtaSub">Байланыс қалдыр — толық бизнес-жоспар жібереміз және барлық сұраққа жауап береміз</p>
+      </div>
+
+      <!-- Disclaimer -->
+      <p class="text-warm/20 text-[11px] text-center mt-16 max-w-lg mx-auto leading-relaxed" data-i18n="offerDisclaimer">
+        Көрсеткіштер қаржылық болжамның негізгі сценарийіне негізделген. Нақты нәтижелер нарық жағдайларына байланысты. Инвестициялау тәуекелдермен байланысты.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================================================================ -->
+  <!-- INVESTOR                                                         -->
+  <!-- ================================================================ -->
+  <section id="investor" class="stack-section relative noise py-28 md:py-36 overflow-hidden bg-s1">
+    <!-- Subtle warm orb -->
+    <div class="absolute top-[10%] right-[-5%] w-[400px] h-[400px] rounded-full pointer-events-none opacity-30 float-slow"
+         style="background: radial-gradient(circle, rgba(197,131,94,0.06) 0%, transparent 70%); filter: blur(60px);"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-6 lg:px-10">
+      <div class="mb-20">
+        <div class="flex items-center gap-4 mb-5">
+          <div class="w-0 h-[1px] bg-copper section-line"></div>
+          <span class="text-copper text-xs font-semibold uppercase tracking-[0.3em]">Условия сделки</span>
+        </div>
+        <h2 class="section-title font-serif text-3xl md:text-5xl text-cream2 leading-tight" data-i18n="invTitle">
+          Инвестор ретінде не<br><span class="text-copper italic">аласыз</span>
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-5 max-w-5xl mb-12">
+        <!-- Stage 1 -->
+        <div class="inv-card glass card-elegant rounded-2xl p-8 lg:p-10">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="w-12 h-12 bg-copper/10 rounded-xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-copper" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"/></svg>
+            </div>
+            <div>
+              <span class="text-copper text-[10px] font-semibold uppercase tracking-[0.3em]" data-i18n="invStage1Label">1-кезең</span>
+              <h3 class="font-serif text-xl lg:text-2xl text-cream2" data-i18n="invStage1Title">Капиталды қайтару</h3>
+            </div>
+          </div>
+          <ul class="space-y-5 inv-list">
+            <li class="flex items-start gap-4">
+              <div class="w-5 h-5 bg-copper/10 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-2.5 h-2.5 text-copper" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              </div>
+              <span class="text-warm/70 text-[15px]" data-i18n="invS1Item1">Сіз саласыз: <strong class="text-cream font-medium">35 000 000 ₸</strong></span>
+            </li>
+            <li class="flex items-start gap-4">
+              <div class="w-5 h-5 bg-copper/10 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-2.5 h-2.5 text-copper" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              </div>
+              <span class="text-warm/70 text-[15px]" data-i18n="invS1Item2">6-шы айдан: <strong class="text-cream font-medium">таза пайданың 100%</strong> сізге түседі</span>
+            </li>
+            <li class="flex items-start gap-4">
+              <div class="w-5 h-5 bg-copper/10 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-2.5 h-2.5 text-copper" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              </div>
+              <span class="text-warm/70 text-[15px]" data-i18n="invS1Item3">Толық қайтару: <strong class="text-cream font-medium">25 ай</strong> ішінде</span>
+            </li>
+            <li class="flex items-start gap-4">
+              <div class="w-5 h-5 bg-copper/10 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-2.5 h-2.5 text-copper" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              </div>
+              <span class="text-warm/70 text-[15px]" data-i18n="invS1Item4">Тәуекел <strong class="text-cream font-medium">минималды</strong> — бөлуге дейін ақша қайтарылады</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Stage 2 -->
+        <div class="inv-card glass-warm card-elegant rounded-2xl p-8 lg:p-10">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="w-12 h-12 bg-copper/15 rounded-xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-copper2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div>
+              <span class="text-copper2 text-[10px] font-semibold uppercase tracking-[0.3em]" data-i18n="invStage2Label">2-кезең</span>
+              <h3 class="font-serif text-xl lg:text-2xl text-cream2" data-i18n="invStage2Title">Дивидендтер</h3>
+            </div>
+          </div>
+          <ul class="space-y-5 inv-list">
+            <li class="flex items-start gap-4">
+              <div class="w-5 h-5 bg-copper/15 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-2.5 h-2.5 text-copper2" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              </div>
+              <span class="text-warm/70 text-[15px]" data-i18n="invS2Item1">Қайтарған соң: <strong class="text-cream font-medium">пайданың 30%</strong> ай сайын — мерзімсіз</span>
+            </li>
+            <li class="flex items-start gap-4">
+              <div class="w-5 h-5 bg-copper/15 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-2.5 h-2.5 text-copper2" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              </div>
+              <span class="text-warm/70 text-[15px]" data-i18n="invS2Item2">Айлық пайда: <strong class="text-cream font-medium">2,5–3 млн ₸</strong></span>
+            </li>
+            <li class="flex items-start gap-4">
+              <div class="w-5 h-5 bg-copper/15 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-2.5 h-2.5 text-copper2" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              </div>
+              <span class="text-warm/70 text-[15px]" data-i18n="invS2Item3">Сіздің үлесіңіз: <strong class="text-cream font-medium">750 000 – 900 000 ₸</strong> / ай</span>
+            </li>
+            <li class="flex items-start gap-4">
+              <div class="w-5 h-5 bg-copper/15 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-2.5 h-2.5 text-copper2" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              </div>
+              <span class="text-warm/70 text-[15px]" data-i18n="invS2Item4">Жылдық табыс: <strong class="text-cream font-medium">9–11 млн ₸</strong></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Photo: result -->
+      <div class="grid md:grid-cols-2 gap-5 max-w-5xl mb-12">
+        <div class="rounded-2xl overflow-hidden border border-cream/[0.06] aspect-[4/3] bg-s3 flex items-center justify-center">
+          <img src="images/result.png" alt="Готовая работа с керамогранитом" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='<div class=\'text-center p-8\'><svg class=\'w-12 h-12 text-copper/30 mx-auto mb-3\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-sm\'>result.png</p></div>'" />
+        </div>
+        <div class="rounded-2xl overflow-hidden border border-cream/[0.06] aspect-[4/3] bg-s3 flex items-center justify-center">
+          <img src="images/result2.png" alt="Интерьер с керамогранитом" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='<div class=\'text-center p-8\'><svg class=\'w-12 h-12 text-copper/30 mx-auto mb-3\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-sm\'>result2.png</p></div>'" />
+        </div>
+      </div>
+
+      <!-- ROI -->
+      <div class="max-w-5xl roi-block">
+        <div class="roi-card bg-s2 rounded-2xl p-10 md:p-16 text-center overflow-hidden">
+          <p class="font-serif text-4xl md:text-5xl text-cream2 mb-3 tracking-tight" data-i18n="roiTitle">
+            ROI ~<span class="text-copper">29%</span> жылдық
+          </p>
+          <p class="font-serif text-xl md:text-2xl text-copper italic mb-2" data-i18n="roiSub">
+            Бизнестің үлесі — мәңгілікке.
+          </p>
+          <p class="text-warm/30 text-xs mt-8 max-w-md mx-auto" data-i18n="roiDisclaimer">
+            Көрсеткіштер бизнес-жоспардың негізгі сценарийіне негізделген. Нақты нәтижелер өзгеруі мүмкін.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================ -->
+  <!-- FORM                                                             -->
+  <!-- ================================================================ -->
+  <section id="contact" class="stack-section relative noise py-28 md:py-36 bg-s2">
+    <div class="relative z-10 max-w-md mx-auto px-6">
+      <div class="text-center mb-12">
+        <div class="ornament mb-6">
+          <svg class="w-3 h-3 text-copper/40" viewBox="0 0 12 12"><rect x="3" y="3" width="6" height="6" transform="rotate(45 6 6)" fill="currentColor"/></svg>
+        </div>
+        <h2 class="section-title font-serif text-3xl md:text-4xl text-cream2 leading-tight mb-5" data-i18n="formTitle">
+          Көбірек білгіңіз келе ме?
+        </h2>
+        <p class="text-warm/60 text-[15px] leading-relaxed" data-i18n="formSub">
+          Байланыс қалдырыңыз — біз хабарласып, толық бизнес-жоспар жібереміз.
+        </p>
+      </div>
+
+      <form id="contactForm" onsubmit="handleSubmit(event)" class="form-block">
+        <div class="glass rounded-2xl p-8 md:p-10">
+          <div class="space-y-5 mb-8">
+            <div>
+              <label for="name" class="block text-xs font-medium text-warm/50 mb-2 uppercase tracking-wider" data-i18n="formLabelName">Атыңыз</label>
+              <input type="text" id="name" name="name" required autocomplete="name" placeholder="Атыңыз кім?" data-i18n-placeholder="formPlaceholderName"
+                class="input-warm w-full px-5 py-4 rounded-lg bg-cream/[0.03] border border-cream/[0.08] text-cream placeholder:text-warm/20 text-base transition-all">
+            </div>
+            <div>
+              <label for="phone" class="block text-xs font-medium text-warm/50 mb-2 uppercase tracking-wider" data-i18n="formLabelPhone">Телефон</label>
+              <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="+7 (___) ___-__-__"
+                class="input-warm w-full px-5 py-4 rounded-lg bg-cream/[0.03] border border-cream/[0.08] text-cream placeholder:text-warm/20 text-base transition-all">
+            </div>
+          </div>
+          <button type="submit" class="btn-warm w-full text-white font-semibold text-base px-8 py-4 rounded-lg" data-i18n="formBtn">
+            Өтінім жіберу
+          </button>
+          <p class="text-center text-warm/25 text-xs mt-5" data-i18n="formPrivacy">Біз мәліметтерді үшінші тұлғаларға бермейміз. 24 сағат ішінде жауап береміз.</p>
+        </div>
+      </form>
+
+      <div id="successMsg" class="hidden">
+        <div class="glass rounded-2xl p-12 text-center">
+          <div class="w-16 h-16 bg-copper/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-copper" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+          </div>
+          <h3 class="font-serif text-2xl text-cream2 mb-3" data-i18n="successTitle">Рахмет!</h3>
+          <p class="text-warm/60" data-i18n="successMsg">Өтінімді алдық, сізбен байланысамыз.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="relative z-30 bg-bg py-8 border-t border-cream/[0.04]">
+    <div class="max-w-6xl mx-auto px-6 lg:px-10 flex flex-col md:flex-row items-center justify-between gap-3">
+      <a href="#" class="text-warm/40 font-serif text-lg tracking-wide hover:text-cream transition-colors">
+        KERAMO <span class="text-copper/50">BUILD</span>
+      </a>
+      <p class="text-warm/20 text-sm">&copy; 2026 KERAMO BUILD</p>
+    </div>
+  </footer>
+
+  <!-- ================================================================ -->
+  <!-- JS                                                               -->
+  <!-- ================================================================ -->
+  <script>
+    /* ========= i18n ========= */
+    const translations = {
+      kk: {
+        navMarket: 'Нарық',
+        navProcess: 'Үдеріс',
+        navOffer: 'Ұсыныс',
+        navInvestor: 'Инвестор',
+        headerCta: 'Өтінім қалдыру',
+        heroCtaMain: 'Толығырақ білу',
+        heroCtaMarket: 'Нарық туралы',
+        heroBadge: 'АСТАНА · КЕРАМОГРАНИТ · ӨНДІРІС',
+        heroTitle: 'Керамогранит<br>өндірісіне<br><span class="text-copper italic">инвестиция сал</span>',
+        heroSub: '25&nbsp;айда қайтарым. Содан кейін пайданың 30% — мәңгілікке.',
+        metricInvest: 'Инвестиция',
+        metricReturn: 'Қайтарым',
+        metricProfit: 'Пайда',
+        ctaPrimary: 'Бизнес-жоспар алу',
+        ctaSecondary: 'Толығырақ',
+        marketLabel: 'НАРЫҚ',
+        marketTitle: 'Неліктен <span class="text-copper italic">керамогранит</span>',
+        market1Title: 'Тұрғын үй бумы',
+        market1Desc: 'Астанада жылына 2,5 млн м² тұрғын үй пайдалануға беріледі. Әрбір пәтер керамогранитті қажет етеді — жуынатын бөлме, ас бөлме, дәліз.',
+        market1Stat: '2,5 млн м² / жыл',
+        market2Title: 'Импортты алмастыру',
+        market2Desc: 'Керамограниттің 85%-ы шетелден әкелінеді. Жергілікті өндіріс — логистика + баға бойынша бәсекелестік артықшылық.',
+        market2Stat: '85% импорт',
+        market3Title: 'Мемлекеттік қолдау',
+        market3Desc: 'Қазақстандағы өңдеу өнеркәсібін дамытуға субсидиялар, салық жеңілдіктері және гранттар.',
+        market3Stat: 'Субсидиялар + гранттар',
+        processLabel: 'ҮДЕРІС',
+        processTitle: 'Бизнес қалай <span class="text-copper italic">жұмыс істейді</span>',
+        step1: '<strong class="text-cream font-medium">Шикізат.</strong> Қазақстандық карьерлерден саз бен минералдар жеткізіледі.',
+        step2: '<strong class="text-cream font-medium">Өндіріс.</strong> Пресстеу, күйдіру (1200°C), жылтырату — еуропалық сапа.',
+        step3: '<strong class="text-cream font-medium">Өнім.</strong> Керамогранит плиткалар 60×60, 120×60 форматта, 15+ дизайн.',
+        step4: '<strong class="text-cream font-medium">Саудасы.</strong> B2B: құрылыс компаниялары, жөндеу бригадалары, жобашылар.',
+        step5: '<strong class="text-cream font-medium">Сервис.</strong> Кесу, жеткізу, монтаж — « бәрі бір жерден» үлгісі.',
+        metricAvgCheck: 'Орташа чек',
+        metricMargin: 'Маржа',
+        metricGoal: 'Жоспар',
+        processDesc: 'Бүкіл цикл — шикізаттан тұтынушыға дейін — бір компания шеңберінде. Қосымша делдалдар жоқ. Максималды бақылау мен пайда.',
+        offerTitle: 'Бір рет инвестиция сал —<br><span class="text-copper italic">өмір бойы табыс ал</span>',
+        offerSub: 'Астанадағы өндірістік бизнестің компания пайдасының 30% үлесімен тең іесі бол. Біз барлық жұмысты жасаймыз. Сен ақша аласың.',
+        offerBlock1Title: 'Ұсыныс',
+        offerBlock1Desc: '<strong class="text-cream font-medium">35 000 000 теңге</strong> бір рет сал — және KERAMO BUILD-тың 30% үлесімен толық құқықты тең іесі бол. Салымды қайтарған соң тоқсан сайын пайда аласың. Мәңгілікке.',
+        offerBlock2Title: 'Пассивтілік',
+        offerBlock2Desc: 'Саған өндірісті түсіну, адам жалдау немесе тапсырыстарды бақылау қажет емес. Операциялық команда бәрін өзіне алады. Сенің міндетің — бүгін бір шешім.',
+        offerBlock3Title: 'Сандар',
+        offerBlock3Desc: 'Компанияның 26-шы айдан бастап күтілетін пайдасы — айына <strong class="text-cream font-medium">2 500 000 ₸</strong>-ден. Сенің үлесің (30%) — айына <strong class="text-cream font-medium">750 000 ₸</strong>-ден, немесе тоқсанына <strong class="text-cream font-medium">2 250 000 ₸</strong>-ден. Бұл нақты пассивті табыс.',
+        offerBlock4Title: 'Қауіпсіздік',
+        offerBlock4Desc: 'Мәміле заңды түрде ресімделеді: шарт, компаниядағы үлес, ашық есеп. Алдымен салған ақшаңды толық қайтарасың — сонда ғана пайда бөлінеді. Сенің капиталың қорғалған.',
+        offerAdv1Title: 'Бір реттік инвестиция',
+        offerAdv1Desc: 'Бір рет саласың — табыс мерзімсіз түседі',
+        offerAdv2Title: 'Заңдық қорғау',
+        offerAdv2Desc: 'Шарт, ТОО-дағы үлес, ашық есептілік',
+        offerAdv3Title: 'Пассивті табыс',
+        offerAdv3Desc: 'Салымды қайтарған соң айына 750 000 ₸-ден',
+        offerKeyTitle: 'компания пайдасы — сенікі.',
+        offerKeySub: 'Әр тоқсан. Мәңгілікке.',
+        offerCta: 'Тең іесі болғым келеді',
+        offerCtaSub: 'Байланыс қалдыр — толық бизнес-жоспар жіберемiз және барлық сұраққа жауап береміз',
+        offerDisclaimer: 'Көрсеткіштер қаржылық болжамның негізгі сценарийіне негізделген. Нақты нәтижелер нарық жағдайларына байланысты. Инвестициялау тәуекелдермен байланысты.',
+        invTitle: 'Инвестор ретінде не<br><span class="text-copper italic">аласыз</span>',
+        invStage1Label: '1-кезең',
+        invStage1Title: 'Капиталды қайтару',
+        invS1Item1: 'Сіз саласыз: <strong class="text-cream font-medium">35 000 000 ₸</strong>',
+        invS1Item2: '6-шы айдан: <strong class="text-cream font-medium">таза пайданың 100%</strong> сізге түседі',
+        invS1Item3: 'Толық қайтару: <strong class="text-cream font-medium">25 ай</strong> ішінде',
+        invS1Item4: 'Тәуекел <strong class="text-cream font-medium">минималды</strong> — бөлуге дейін ақша қайтарылады',
+        invStage2Label: '2-кезең',
+        invStage2Title: 'Дивидендтер',
+        invS2Item1: 'Қайтарған соң: <strong class="text-cream font-medium">пайданың 30%</strong> ай сайын — мерзімсіз',
+        invS2Item2: 'Айлық пайда: <strong class="text-cream font-medium">2,5–3 млн ₸</strong>',
+        invS2Item3: 'Сіздің үлесіңіз: <strong class="text-cream font-medium">750 000 – 900 000 ₸</strong> / ай',
+        invS2Item4: 'Жылдық табыс: <strong class="text-cream font-medium">9–11 млн ₸</strong>',
+        roiTitle: 'ROI ~<span class="text-copper">29%</span> жылдық',
+        roiSub: 'Бизнестің үлесі — мәңгілікке.',
+        roiDisclaimer: 'Көрсеткіштер бизнес-жоспардың негізгі сценарийіне негізделген. Нақты нәтижелер өзгеруі мүмкін.',
+        formTitle: 'Көбірек білгіңіз келе ме?',
+        formSub: 'Байланыс қалдырыңыз — біз хабарласып, толық бизнес-жоспар жіберемiз.',
+        formLabelName: 'Атыңыз',
+        formPlaceholderName: 'Атыңыз кім?',
+        formLabelPhone: 'Телефон',
+        formBtn: 'Өтінім жіберу',
+        formPrivacy: 'Біз мәліметтерді үшінші тұлғаларға бермейміз. 24 сағат ішінде жауап береміз.',
+        successTitle: 'Рахмет!',
+        successMsg: 'Өтінімді алдық, сізбен байланысамыз.'
+      },
+      ru: {
+        navMarket: 'Рынок',
+        navProcess: 'Процесс',
+        navOffer: 'Оффер',
+        navInvestor: 'Инвестор',
+        headerCta: 'Оставить заявку',
+        heroCtaMain: 'Узнать больше',
+        heroCtaMarket: 'О рынке',
+        heroBadge: 'АСТАНА · КЕРАМОГРАНИТ · ПРОИЗВОДСТВО',
+        heroTitle: 'Инвестируй в<br>производство<br><span class="text-copper italic">керамогранита</span>',
+        heroSub: 'Возврат за 25&nbsp;месяцев. Затем 30% прибыли — навсегда.',
+        metricInvest: 'Инвестиция',
+        metricReturn: 'Возврат',
+        metricProfit: 'Прибыль',
+        ctaPrimary: 'Получить бизнес-план',
+        ctaSecondary: 'Подробнее',
+        marketLabel: 'РЫНОК',
+        marketTitle: 'Почему <span class="text-copper italic">керамогранит</span>',
+        market1Title: 'Жилищный бум',
+        market1Desc: 'В Астане ежегодно сдаётся 2,5 млн м² жилья. Каждая квартира нуждается в керамограните — ванная, кухня, коридор.',
+        market1Stat: '2,5 млн м² / год',
+        market2Title: 'Импортозамещение',
+        market2Desc: '85% керамогранита импортируется. Локальное производство — конкурентное преимущество по логистике + цене.',
+        market2Stat: '85% импорт',
+        market3Title: 'Господдержка',
+        market3Desc: 'Субсидии, налоговые льготы и гранты на развитие обрабатывающей промышленности в Казахстане.',
+        market3Stat: 'Субсидии + гранты',
+        processLabel: 'ПРОЦЕСС',
+        processTitle: 'Как работает <span class="text-copper italic">бизнес</span>',
+        step1: '<strong class="text-cream font-medium">Сырьё.</strong> Глина и минералы из казахстанских карьеров.',
+        step2: '<strong class="text-cream font-medium">Производство.</strong> Прессование, обжиг (1200°C), полировка — европейское качество.',
+        step3: '<strong class="text-cream font-medium">Продукт.</strong> Керамогранитная плитка 60×60, 120×60, 15+ дизайнов.',
+        step4: '<strong class="text-cream font-medium">Продажи.</strong> B2B: строительные компании, бригады, проектировщики.',
+        step5: '<strong class="text-cream font-medium">Сервис.</strong> Нарезка, доставка, монтаж — модель «всё в одном месте».',
+        metricAvgCheck: 'Средний чек',
+        metricMargin: 'Маржа',
+        metricGoal: 'Цель',
+        processDesc: 'Весь цикл — от сырья до потребителя — в рамках одной компании. Никаких посредников. Максимальный контроль и прибыль.',
+        offerTitle: 'Инвестируй один раз —<br><span class="text-copper italic">получай доход всю жизнь</span>',
+        offerSub: 'Стань совладельцем производственного бизнеса в Астане с долей 30% от прибыли компании. Мы делаем всю работу. Ты получаешь деньги.',
+        offerBlock1Title: 'Оффер',
+        offerBlock1Desc: 'Вложи <strong class="text-cream font-medium">35 000 000 тенге</strong> один раз — и стань полноправным совладельцем KERAMO BUILD с долей 30%. После возврата вложений ты начинаешь получать ежеквартальные выплаты от прибыли компании. Навсегда.',
+        offerBlock2Title: 'Пассивность',
+        offerBlock2Desc: 'Тебе не нужно разбираться в производстве, нанимать людей или следить за заказами. Операционная команда берёт на себя всё: продажи, нарезку, монтаж, маркетинг. Твоя задача — одно решение сегодня.',
+        offerBlock3Title: 'Цифры',
+        offerBlock3Desc: 'Прогнозируемая прибыль компании с 26-го месяца — от <strong class="text-cream font-medium">2 500 000 ₸/мес</strong>. Твоя доля (30%) — от <strong class="text-cream font-medium">750 000 ₸</strong> ежемесячно, или от <strong class="text-cream font-medium">2 250 000 ₸</strong> в квартал. Это реальный пассивный доход.',
+        offerBlock4Title: 'Безопасность',
+        offerBlock4Desc: 'Сделка оформляется юридически: договор, доля в компании, прозрачная отчётность. Сначала ты полностью возвращаешь вложенные деньги — и только потом начинается распределение прибыли. Твой капитал защищён.',
+        offerAdv1Title: 'Разовая инвестиция',
+        offerAdv1Desc: 'Вкладываешь один раз — доход идёт бессрочно',
+        offerAdv2Title: 'Юридическая защита',
+        offerAdv2Desc: 'Договор, доля в ТОО, прозрачная отчётность',
+        offerAdv3Title: 'Пассивный доход',
+        offerAdv3Desc: 'От 750 000 ₸ в месяц после возврата вложений',
+        offerKeyTitle: 'прибыли компании — твои.',
+        offerKeySub: 'Каждый квартал. Навсегда.',
+        offerCta: 'Хочу стать совладельцем',
+        offerCtaSub: 'Оставь контакт — мы пришлём полный бизнес-план и ответим на все вопросы',
+        offerDisclaimer: 'Показатели основаны на базовом сценарии финансового прогноза. Фактические результаты зависят от рыночных условий. Инвестирование сопряжено с рисками.',
+        invTitle: 'Что вы получаете<br><span class="text-copper italic">как инвестор</span>',
+        invStage1Label: 'Этап 1',
+        invStage1Title: 'Возврат капитала',
+        invS1Item1: 'Вы вкладываете: <strong class="text-cream font-medium">35 000 000 ₸</strong>',
+        invS1Item2: 'С 6-го месяца: <strong class="text-cream font-medium">100% чистой прибыли</strong> идёт вам',
+        invS1Item3: 'Полный возврат: через <strong class="text-cream font-medium">25 месяцев</strong>',
+        invS1Item4: 'Риск <strong class="text-cream font-medium">минимален</strong> — деньги возвращаются до распределения',
+        invStage2Label: 'Этап 2',
+        invStage2Title: 'Дивиденды',
+        invS2Item1: 'После возврата: <strong class="text-cream font-medium">30% прибыли</strong> ежемесячно — бессрочно',
+        invS2Item2: 'Прибыль в месяц: <strong class="text-cream font-medium">2,5–3 млн ₸</strong>',
+        invS2Item3: 'Ваша доля: <strong class="text-cream font-medium">750 000 – 900 000 ₸</strong> / мес',
+        invS2Item4: 'Годовой доход: <strong class="text-cream font-medium">9–11 млн ₸</strong>',
+        roiTitle: 'ROI ~<span class="text-copper">29%</span> годовых',
+        roiSub: 'Доля в бизнесе — навсегда.',
+        roiDisclaimer: 'Показатели основаны на базовом сценарии бизнес-плана. Фактические результаты могут отличаться.',
+        formTitle: 'Хотите узнать больше?',
+        formSub: 'Оставьте контакт — мы свяжемся и отправим полный бизнес-план.',
+        formLabelName: 'Имя',
+        formPlaceholderName: 'Как вас зовут?',
+        formLabelPhone: 'Телефон',
+        formBtn: 'Отправить заявку',
+        formPrivacy: 'Мы не передаём данные третьим лицам. Ответим в течение 24 часов.',
+        successTitle: 'Спасибо!',
+        successMsg: 'Мы получили заявку и свяжемся с вами.'
+      }
+    };
+
+    function switchLang(lang) {
+      document.documentElement.lang = lang;
+      // Update buttons
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      // Translate text elements
+      const dict = translations[lang];
+      if (!dict) return;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (dict[key] !== undefined) el.innerHTML = dict[key];
+      });
+      // Translate placeholders
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.dataset.i18nPlaceholder;
+        if (dict[key] !== undefined) el.placeholder = dict[key];
+      });
+      // Update counter suffixes
+      document.querySelectorAll('[data-suffix-kk]').forEach(el => {
+        const suffix = el.getAttribute('data-suffix-' + lang);
+        if (suffix !== null) el.dataset.currentSuffix = suffix;
+      });
+      localStorage.setItem('keramo-lang', lang);
+    }
+
+    // Init language from storage or default
+    (function() {
+      const saved = localStorage.getItem('keramo-lang');
+      if (saved && saved !== 'kk') switchLang(saved);
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchLang(btn.dataset.lang));
+      });
+    })();
+
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+    /* ========= PRELOADER ========= */
+    (function() {
+      const wipePanels = document.querySelectorAll('.wipe-panel');
+      const tl = gsap.timeline({ onComplete: initPage });
+
+      tl.to('.pre-logo', { opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out' })
+        .to('.pre-line', { width: 120, duration: 0.6, ease: 'power3.out' }, '-=0.3')
+        .to('.pre-ring', { opacity: 0.3, scale: 1.15, duration: 0.5, stagger: 0.1, ease: 'power2.out' }, '-=0.2')
+        .to('.pre-ring', { scale: 2.5, opacity: 0, duration: 0.4, stagger: 0.05, ease: 'power2.in' }, '+=0.3')
+        .to('.pre-logo', { scale: 1.2, duration: 0.2, ease: 'power2.in' }, '-=0.2')
+        .to('.pre-flash', { opacity: 1, duration: 0.1 })
+        .to('.pre-logo', { y: -40, opacity: 0, duration: 0.3, ease: 'power3.in' }, '-=0.05')
+        .to('.pre-line', { width: 0, opacity: 0, duration: 0.2 }, '-=0.2')
+        .to('.pre-flash', { opacity: 0, duration: 0.3 }, '-=0.1')
+        .to('.wipe-panel', { scaleX: 1, duration: 0.4, stagger: 0.06, ease: 'power4.inOut' }, '-=0.1')
+        .set('#preloader', { display: 'none' })
+        .to(wipePanels[0], { scaleX: 0, duration: 0.5, ease: 'power4.inOut', transformOrigin: 'right' }, '+=0.05')
+        .to(wipePanels[1], { scaleX: 0, duration: 0.5, ease: 'power4.inOut', transformOrigin: 'left' }, '-=0.45')
+        .add(() => {
+          document.body.classList.remove('loading');
+          wipePanels.forEach(p => p.style.display = 'none');
+        });
+    })();
+
+    /* ========= INIT ========= */
+    function initPage() {
+      heroEntrance();
+      initScrollAnimations();
+      initProgressBar();
+      initHeader();
+      initSmoothLinks();
+
+      // Recalculate scroll positions after layout stabilizes
+      requestAnimationFrame(() => {
+        ScrollTrigger.refresh(true);
+      });
+
+      // Safety fallback: if elements are still invisible after 4s, force them visible
+      setTimeout(() => {
+        document.querySelectorAll('.section-title, .market-card, .process-card, .metric-card, .process-text, .inv-card, .inv-list li, .roi-block, .form-block, .offer-title, .offer-text, .offer-adv, .offer-key, .offer-cta').forEach(el => {
+          if (getComputedStyle(el).opacity === '0') {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+          }
+        });
+      }, 4000);
+    }
+
+    /* ========= HERO ========= */
+    function heroEntrance() {
+      // Make hero elements visible (they start with visibility:hidden to prevent flash during preloader)
+      ['#heroBadge','#heroTitle','#heroSub','#heroMetrics','#heroCTA'].forEach(s => {
+        const el = document.querySelector(s);
+        if (el) { el.style.visibility = 'visible'; el.style.opacity = '0'; }
+      });
+
+      const tl = gsap.timeline({ delay: 0.15 });
+      tl.fromTo('#heroBadge', { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.7, ease: 'power3.out' })
+        .fromTo('#heroTitle', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.4')
+        .fromTo('#heroSub', { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.5')
+        .fromTo('#heroMetrics', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.35')
+        .fromTo('#heroCTA', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.3');
+    }
+
+    /* ========= SCROLL ANIMATIONS ========= */
+    function initScrollAnimations() {
+      // Section titles
+      gsap.utils.toArray('.section-title').forEach(el => {
+        gsap.fromTo(el,
+          { opacity: 0, y: 50 },
+          { opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 85%' }
+          }
+        );
+      });
+
+      // Section lines
+      gsap.utils.toArray('.section-line').forEach(el => {
+        gsap.to(el, { width: 60, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 85%' }
+        });
+      });
+
+      // Market cards
+      gsap.utils.toArray('.market-card').forEach((card, i) => {
+        gsap.fromTo(card,
+          { opacity: 0, y: 60 },
+          { opacity: 1, y: 0, duration: 0.8, delay: i * 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: card, start: 'top 90%' }
+          }
+        );
+      });
+
+      // Process cards
+      gsap.utils.toArray('.process-card').forEach((card, i) => {
+        gsap.fromTo(card,
+          { opacity: 0, y: 40, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.6, delay: i * 0.08, ease: 'power3.out',
+            scrollTrigger: { trigger: card, start: 'top 92%' }
+          }
+        );
+      });
+
+      // Metric cards
+      gsap.utils.toArray('.metric-card').forEach((card, i) => {
+        gsap.fromTo(card,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.6, delay: i * 0.1, ease: 'power3.out',
+            scrollTrigger: { trigger: card, start: 'top 90%' }
+          }
+        );
+      });
+
+      // Process text
+      gsap.utils.toArray('.process-text').forEach(el => {
+        gsap.fromTo(el, { opacity: 0, y: 20 }, {
+          opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 90%' }
+        });
+      });
+
+      // Investor cards
+      const invCards = document.querySelectorAll('.inv-card');
+      invCards.forEach((card, i) => {
+        gsap.fromTo(card,
+          { opacity: 0, x: i === 0 ? -50 : 50 },
+          { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
+            scrollTrigger: { trigger: card, start: 'top 85%' }
+          }
+        );
+      });
+
+      // Investor list items
+      document.querySelectorAll('.inv-list').forEach(list => {
+        gsap.fromTo(list.children,
+          { opacity: 0, x: -15 },
+          { opacity: 1, x: 0, duration: 0.4, stagger: 0.08, ease: 'power2.out',
+            scrollTrigger: { trigger: list, start: 'top 85%' }
+          }
+        );
+      });
+
+      // ROI block
+      gsap.fromTo('.roi-block',
+        { opacity: 0, y: 40, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: 'power3.out',
+          scrollTrigger: { trigger: '.roi-block', start: 'top 85%' }
+        }
+      );
+
+      // Offer block
+      gsap.fromTo('.offer-title',
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+          scrollTrigger: { trigger: '.offer-title', start: 'top 85%' }
+        }
+      );
+      gsap.utils.toArray('.offer-text').forEach((el, i) => {
+        gsap.fromTo(el,
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: 0, duration: 0.7, delay: i * 0.1, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 90%' }
+          }
+        );
+      });
+      gsap.utils.toArray('.offer-adv').forEach((el, i) => {
+        gsap.fromTo(el,
+          { opacity: 0, y: 30, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.6, delay: i * 0.12, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 90%' }
+          }
+        );
+      });
+      gsap.fromTo('.offer-key',
+        { opacity: 0, scale: 0.9 },
+        { opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out',
+          scrollTrigger: { trigger: '.offer-key', start: 'top 85%' }
+        }
+      );
+      gsap.fromTo('.offer-cta',
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+          scrollTrigger: { trigger: '.offer-cta', start: 'top 90%' }
+        }
+      );
+
+      // Form
+      gsap.fromTo('.form-block',
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: '.form-block', start: 'top 85%' }
+        }
+      );
+
+      // Counters
+      document.querySelectorAll('.counter-up').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        ScrollTrigger.create({
+          trigger: el, start: 'top 90%', once: true,
+          onEnter: () => {
+            gsap.to({ v: 0 }, {
+              v: target, duration: 2, ease: 'power2.out',
+              onUpdate() { el.textContent = Math.floor(this.targets()[0].v) + suffix; }
+            });
+          }
+        });
+      });
+
+      // Hero subtle fade on scroll
+      gsap.to('#heroSection .relative.z-10', {
+        opacity: 0, y: -40,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#heroSection', start: 'center center', end: 'bottom top', scrub: 0.5
+        }
+      });
+    }
+
+    /* ========= PROGRESS BAR ========= */
+    function initProgressBar() {
+      gsap.to('#progressBar', {
+        scaleX: 1, ease: 'none',
+        scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 }
+      });
+    }
+
+    /* ========= HEADER ========= */
+    function initHeader() {
+      const header = document.getElementById('header');
+      let lastScroll = 0;
+      ScrollTrigger.create({
+        start: 80,
+        onUpdate: s => {
+          const curr = s.scroll();
+          header.classList.toggle('header-solid', curr > 80);
+          // Auto-hide on scroll down, show on scroll up
+          if (curr > 300) {
+            if (curr > lastScroll + 5) {
+              header.style.transform = 'translateY(-100%)';
+            } else if (curr < lastScroll - 5) {
+              header.style.transform = 'translateY(0)';
+            }
+          } else {
+            header.style.transform = 'translateY(0)';
+          }
+          lastScroll = curr;
+        }
+      });
+      // GSAP entrance
+      gsap.fromTo('#header',
+        { y: -30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: 'power3.out' }
+      );
+    }
+
+    function closeMobileMenu() {
+      document.querySelector('.header-burger')?.classList.remove('open');
+      document.getElementById('mobileMenu')?.classList.remove('open');
+    }
+
+    /* ========= SMOOTH SCROLL ========= */
+    function initSmoothLinks() {
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+          e.preventDefault();
+          const t = document.querySelector(a.getAttribute('href'));
+          if (t) gsap.to(window, { scrollTo: t, duration: 1.2, ease: 'power3.inOut' });
+        });
+      });
+    }
+
+    /* ========= FORM ========= */
+    function handleSubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('contactForm');
+      const ok = document.getElementById('successMsg');
+      gsap.to(form, { opacity: 0, y: -10, duration: 0.3, ease: 'power2.in', onComplete: () => {
+        form.classList.add('hidden');
+        ok.classList.remove('hidden');
+        gsap.fromTo(ok, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' });
+      }});
+    }
+  </script>
+</body>
+</html>
