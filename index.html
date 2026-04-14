@@ -600,10 +600,9 @@
               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
             </div>
             <!-- Counter -->
-            <div class="about-counter"><span id="aboutCurrent">1</span> / <span id="aboutTotal">9</span></div>
+            <div class="about-counter"><span id="aboutCurrent">1</span> / <span id="aboutTotal">8</span></div>
             <!-- Track -->
             <div class="about-track" id="aboutTrack">
-              <div class="about-slide"><img src="about/img1.PNG" alt="Ерлан — шоурумда" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>1.jpg</p></div></div>'" /></div>
               <div class="about-slide"><img src="about/img2.PNG" alt="Ерлан — нысанда" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>2.jpg</p></div></div>'" /></div>
               <div class="about-slide"><img src="about/img3.PNG" alt="Өндірістік цех" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>3.jpg</p></div></div>'" /></div>
               <div class="about-slide"><img src="about/img4.PNG" alt="Дайын нәтиже" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>4.jpg</p></div></div>'" /></div>
@@ -1408,7 +1407,7 @@
 
     /* ========= ABOUT CAROUSEL ========= */
     let aboutIndex = 0;
-    const aboutSlideCount = 9;
+    const aboutSlideCount = 8;
     function aboutGoTo(i) {
       aboutIndex = Math.max(0, Math.min(i, aboutSlideCount - 1));
       const track = document.getElementById('aboutTrack');
@@ -1676,11 +1675,40 @@
       e.preventDefault();
       const form = document.getElementById('contactForm');
       const ok = document.getElementById('successMsg');
-      gsap.to(form, { opacity: 0, y: -10, duration: 0.3, ease: 'power2.in', onComplete: () => {
-        form.classList.add('hidden');
-        ok.classList.remove('hidden');
-        gsap.fromTo(ok, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' });
-      }});
+      const btn = form.querySelector('button[type="submit"]');
+      const nameVal = document.getElementById('name').value.trim();
+      const phoneVal = document.getElementById('phone').value.trim();
+      const lang = document.documentElement.lang || 'kk';
+      const now = new Date();
+      const time = now.toLocaleString('ru-RU', { timeZone: 'Asia/Almaty', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+      // Disable button
+      btn.disabled = true;
+      btn.style.opacity = '0.6';
+
+      const text = `🔔 <b>Жаңа өтінім / Новая заявка</b>\n\n👤 <b>Аты/Имя:</b> ${nameVal}\n📞 <b>Телефон:</b> ${phoneVal}\n🕐 <b>Уақыт:</b> ${time}\n🌐 <b>Тіл/Язык:</b> ${lang.toUpperCase()}`;
+
+      fetch('https://api.telegram.org/bot8729501202:AAGrwHeDRhHe8LnGkY03Narbq9tchZ1EhiI/sendMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: '-1003983610328', text: text, parse_mode: 'HTML' })
+      })
+      .then(r => r.json())
+      .then(data => {
+        gsap.to(form, { opacity: 0, y: -10, duration: 0.3, ease: 'power2.in', onComplete: () => {
+          form.classList.add('hidden');
+          ok.classList.remove('hidden');
+          gsap.fromTo(ok, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' });
+        }});
+      })
+      .catch(() => {
+        // Even if Telegram fails, show success to user
+        gsap.to(form, { opacity: 0, y: -10, duration: 0.3, ease: 'power2.in', onComplete: () => {
+          form.classList.add('hidden');
+          ok.classList.remove('hidden');
+          gsap.fromTo(ok, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' });
+        }});
+      });
     }
   </script>
 </body>
