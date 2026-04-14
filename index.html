@@ -299,6 +299,74 @@
       color: #E8DCC8; background: rgba(232,220,200,0.06);
     }
 
+    /* ===== ABOUT SECTION ===== */
+    .about-carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+    .about-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+      will-change: transform;
+    }
+    .about-slide {
+      min-width: 100%;
+      position: relative;
+      aspect-ratio: 3/4;
+    }
+    .about-slide img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+    }
+    .about-dots {
+      display: flex; justify-content: center; gap: 8px;
+      padding-top: 20px;
+    }
+    .about-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(197,131,94,0.2);
+      cursor: pointer; transition: all 0.4s ease;
+    }
+    .about-dot.active {
+      background: #C5835E;
+      width: 28px; border-radius: 4px;
+    }
+    .about-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 10; width: 44px; height: 44px; border-radius: 12px;
+      background: rgba(20,17,24,0.6); backdrop-filter: blur(12px);
+      border: 1px solid rgba(197,131,94,0.15);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.35s ease; color: #E8DCC8;
+    }
+    .about-arrow:hover {
+      background: rgba(197,131,94,0.25); border-color: rgba(197,131,94,0.3);
+    }
+    .about-arrow.prev { left: 12px; }
+    .about-arrow.next { right: 12px; }
+    .about-counter {
+      position: absolute; bottom: 16px; right: 16px; z-index: 10;
+      padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+      background: rgba(20,17,24,0.7); backdrop-filter: blur(10px);
+      color: rgba(232,220,200,0.8); letter-spacing: 0.05em;
+      border: 1px solid rgba(197,131,94,0.1);
+    }
+    .about-text-block p {
+      color: rgba(155,143,128,0.75);
+      font-size: 16px; line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+    .about-text-block p:last-child { margin-bottom: 0; }
+    .about-text-block p strong {
+      color: #E8DCC8; font-weight: 500;
+    }
+    .about-signature {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-style: italic; color: #C5835E;
+      font-size: 18px;
+    }
+
     /* ===== DIVIDER ORNAMENT ===== */
     .ornament {
       display: flex; align-items: center; gap: 16px; justify-content: center;
@@ -391,7 +459,8 @@
 
       <!-- Nav pill -->
       <nav class="header-nav">
-        <a href="#heroSection" data-i18n="navMarket">Нарық</a>
+        <a href="#about" data-i18n="navAbout">Негізін қалаушы</a>
+        <a href="#market" data-i18n="navMarket">Нарық</a>
         <a href="#process" data-i18n="navProcess">Үдеріс</a>
         <a href="#offer" data-i18n="navOffer">Ұсыныс</a>
         <a href="#investor" data-i18n="navInvestor">Инвестор</a>
@@ -414,7 +483,8 @@
     </div>
     <!-- Mobile menu -->
     <div id="mobileMenu" class="header-mobile-menu md:hidden">
-      <a href="#heroSection" data-i18n="navMarket" onclick="closeMobileMenu()">Нарық</a>
+      <a href="#about" data-i18n="navAbout" onclick="closeMobileMenu()">Негізін қалаушы</a>
+      <a href="#market" data-i18n="navMarket" onclick="closeMobileMenu()">Нарық</a>
       <a href="#process" data-i18n="navProcess" onclick="closeMobileMenu()">Үдеріс</a>
       <a href="#offer" data-i18n="navOffer" onclick="closeMobileMenu()">Ұсыныс</a>
       <a href="#investor" data-i18n="navInvestor" onclick="closeMobileMenu()">Инвестор</a>
@@ -489,6 +559,113 @@
     <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10 opacity-50">
       <div class="w-[1px] h-10 overflow-hidden">
         <div class="w-full h-full bg-copper" style="animation: scrollDown 2s ease-in-out infinite;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================ -->
+  <!-- ABOUT FOUNDER                                                    -->
+  <!-- ================================================================ -->
+  <section id="about" class="stack-section relative noise py-28 md:py-36 overflow-hidden bg-s2">
+    <!-- Decorative orbs -->
+    <div class="absolute top-[5%] left-[-8%] w-[500px] h-[500px] rounded-full pointer-events-none opacity-20 float-slow"
+         style="background: radial-gradient(circle, rgba(197,131,94,0.08) 0%, transparent 70%); filter: blur(80px);"></div>
+    <div class="absolute bottom-[10%] right-[-5%] w-[350px] h-[350px] rounded-full pointer-events-none opacity-25"
+         style="background: radial-gradient(circle, rgba(232,220,200,0.05) 0%, transparent 70%); filter: blur(60px);"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-6 lg:px-10">
+
+      <!-- Section header -->
+      <div class="mb-16 md:mb-20">
+        <div class="flex items-center gap-4 mb-5">
+          <div class="w-0 h-[1px] bg-copper section-line"></div>
+          <span class="text-copper text-xs font-semibold uppercase tracking-[0.3em]" data-i18n="aboutLabel">Негізін қалаушы</span>
+        </div>
+        <h2 class="section-title font-serif text-3xl md:text-5xl text-cream2 leading-tight" data-i18n="aboutTitle">
+          Сәлем, менің атым<br><span class="text-copper italic">Ерлан</span>
+        </h2>
+      </div>
+
+      <!-- Two-column layout -->
+      <div class="grid lg:grid-cols-5 gap-10 lg:gap-14 items-start">
+
+        <!-- LEFT: Photo carousel (2/5) -->
+        <div class="lg:col-span-2 about-carousel-wrap">
+          <div class="about-carousel">
+            <!-- Arrows -->
+            <div class="about-arrow prev" onclick="aboutPrev()">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+            </div>
+            <div class="about-arrow next" onclick="aboutNext()">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+            </div>
+            <!-- Counter -->
+            <div class="about-counter"><span id="aboutCurrent">1</span> / <span id="aboutTotal">9</span></div>
+            <!-- Track -->
+            <div class="about-track" id="aboutTrack">
+              <div class="about-slide"><img src="about/img1.PNG" alt="Ерлан — шоурумда" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>1.jpg</p></div></div>'" /></div>
+              <div class="about-slide"><img src="about/img2.PNG" alt="Ерлан — нысанда" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>2.jpg</p></div></div>'" /></div>
+              <div class="about-slide"><img src="about/img3.PNG" alt="Өндірістік цех" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>3.jpg</p></div></div>'" /></div>
+              <div class="about-slide"><img src="about/img4.PNG" alt="Дайын нәтиже" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>4.jpg</p></div></div>'" /></div>
+              <div class="about-slide"><img src="about/img5.jpeg" alt="Команда жұмыста" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>5.jpg</p></div></div>'" /></div>
+              <div class="about-slide"><img src="about/img7.jpeg" alt="Шоурум" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>6.jpg</p></div></div>'" /></div>
+              <div class="about-slide"><img src="about/img8.PNG" alt="Дейін/Кейін" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>7.jpg</p></div></div>'" /></div>
+              <!-- <div class="about-slide"><img src="about/img9.jpeg" alt="Клиентпен кездесу" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>8.jpg</p></div></div>'" /></div> -->
+              <div class="about-slide"><img src="about/img10.jpeg" alt="Жұмыс сапасы" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>9.jpg</p></div></div>'" /></div>
+              <div class="about-slide"><img src="about/img10.jpeg" alt="Ерлан жұмыс үстелінде" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>10.jpg</p></div></div>'" /></div>
+            </div>
+          </div>
+          <!-- Dots -->
+          <div class="about-dots" id="aboutDots"></div>
+
+          <!-- Experience badge below carousel -->
+          <div class="mt-8 flex items-center gap-4 p-5 rounded-xl bg-cream/[0.03] border border-cream/[0.06]">
+            <div class="w-14 h-14 bg-copper/10 rounded-xl flex items-center justify-center flex-shrink-0">
+              <span class="font-serif text-2xl text-copper font-bold">13</span>
+            </div>
+            <div>
+              <p class="text-cream2 font-medium text-sm" data-i18n="aboutExpTitle">Жыл тәжірибе</p>
+              <p class="text-warm/50 text-xs" data-i18n="aboutExpSub">керамогранит саласында</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Text (3/5) -->
+        <div class="lg:col-span-3">
+          <div class="about-text-block space-y-5">
+            <p data-i18n="aboutP1">
+              <strong>Мен Астанада керамогранитпен 13 жыл жұмыс істеймін.</strong> Осы уақыт ішінде бәрінен өттім: жеткізу, сату, клиенттермен жұмыс, команданы басқару. Бұл нарықты ішінен білемін — мүмкіндіктерін, әлсіз жерлерін және әлі не жетіспейтінін.
+            </p>
+            <p data-i18n="aboutP2">
+              Бірнеше жыл бұрын бір нәрсені байқадым: нарық бытыраңқы. Біреулер материал сатады, бірақ монтаж жасамайды. Басқалар монтаж жасайды, бірақ өз материалы жоқ. Клиент бірнеше мердігер арасында жүгіруге мәжбүр — нәтижесінде нәтиженің орнына бас ауруын алады. Мен мұны түзетуге шештім.
+            </p>
+            <p data-i18n="aboutP3">
+              <strong>KERAMO BUILD — толық циклді компания.</strong> Клиент біздің шоурумға келеді, керамогранитті таңдайды, біз оны оның нысанына арнап кесеміз және қабырғаларға монтаждаймыз. Бір шарт, бір жауапкершілік, бір нәтиже. Бұл модельге сенімдімін — өйткені 13 жыл бойы нарық дәл осындай ойыншыны күткенін бақыладым.
+            </p>
+            <p data-i18n="aboutP4">
+              Қазір мен серіктес іздеймін — бизнеске менің көзқарасымды бөлісетін және осы тарихтың бір бөлігі болғысы келетін адам. Жай ақша салу ғана емес, өсіп келе жатқан компанияның нағыз акционері болу. Мен барлық операциялық жұмысты өз мойныма аламын — сен пассивті табыс пен бизнестегі үлесті аласың, оны мен нөлден бастап, бірақ 13 жылдық тәжірибемен құрамын.
+            </p>
+          </div>
+
+          <!-- Signature -->
+          <div class="mt-10 pt-8 border-t border-cream/[0.06] flex items-center gap-5">
+            <div class="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-copper/20 ring-offset-2 ring-offset-s2">
+              <img src="about/avatar2.png" alt="Ерлан" class="w-full h-full object-cover" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-copper/10 flex items-center justify-center\'><svg class=\'w-7 h-7 text-copper\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.5\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z\'/></svg></div>'" />
+            </div>
+            <div>
+              <p class="about-signature" data-i18n="aboutSignature">— Ерлан, KERAMO BUILD негізін қалаушы</p>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="mt-10">
+            <a href="#offer" class="btn-warm inline-flex items-center justify-center gap-3 text-white font-semibold text-base px-10 py-4 rounded-xl">
+              <span data-i18n="aboutCta">Шарттарды білгім келеді</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/></svg>
+            </a>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -939,9 +1116,20 @@
         navProcess: 'Үдеріс',
         navOffer: 'Ұсыныс',
         navInvestor: 'Инвестор',
+        navAbout: 'Негізін қалаушы',
         headerCta: 'Өтінім қалдыру',
         heroCtaMain: 'Толығырақ білу',
         heroCtaMarket: 'Нарық туралы',
+        aboutLabel: 'Негізін қалаушы',
+        aboutTitle: 'Сәлем, менің атым<br><span class="text-copper italic">Ерлан</span>',
+        aboutP1: '<strong>Мен Астанада керамогранитпен 13 жыл жұмыс істеймін.</strong> Осы уақыт ішінде бәрінен өттім: жеткізу, сату, клиенттермен жұмыс, команданы басқару. Бұл нарықты ішінен білемін — мүмкіндіктерін, әлсіз жерлерін және әлі не жетіспейтінін.',
+        aboutP2: 'Бірнеше жыл бұрын бір нәрсені байқадым: нарық бытыраңқы. Біреулер материал сатады, бірақ монтаж жасамайды. Басқалар монтаж жасайды, бірақ өз материалы жоқ. Клиент бірнеше мердігер арасында жүгіруге мәжбүр — нәтижесінде нәтиженің орнына бас ауруын алады. Мен мұны түзетуге шештім.',
+        aboutP3: '<strong>KERAMO BUILD — толық циклді компания.</strong> Клиент біздің шоурумға келеді, керамогранитті таңдайды, біз оны оның нысанына арнап кесеміз және қабырғаларға монтаждаймыз. Бір шарт, бір жауапкершілік, бір нәтиже. Бұл модельге сенімдімін — өйткені 13 жыл бойы нарық дәл осындай ойыншыны күткенін бақыладым.',
+        aboutP4: 'Қазір мен серіктес іздеймін — бизнеске менің көзқарасымды бөлісетін және осы тарихтың бір бөлігі болғысы келетін адам. Жай ақша салу ғана емес, өсіп келе жатқан компанияның нағыз акционері болу. Мен барлық операциялық жұмысты өз мойныма аламын — сен пассивті табыс пен бизнестегі үлесті аласың, оны мен нөлден бастап, бірақ 13 жылдық тәжірибеммен құрамын.',
+        aboutSignature: '— Ерлан, KERAMO BUILD негізін қалаушы',
+        aboutCta: 'Шарттарды білгім келеді',
+        aboutExpTitle: 'Жыл тәжірибе',
+        aboutExpSub: 'керамогранит саласында',
         heroBadge: 'АСТАНА · КЕРАМОГРАНИТ · ӨНДІРІС',
         heroTitle: 'Керамогранит<br>өндірісіне<br><span class="text-copper italic">инвестиция сал</span>',
         heroSub: '25&nbsp;айда қайтарым. Содан кейін пайданың 30% — мәңгілікке.',
@@ -1024,9 +1212,20 @@
         navProcess: 'Процесс',
         navOffer: 'Оффер',
         navInvestor: 'Инвестор',
+        navAbout: 'Основатель',
         headerCta: 'Оставить заявку',
         heroCtaMain: 'Узнать больше',
         heroCtaMarket: 'О рынке',
+        aboutLabel: 'Основатель',
+        aboutTitle: 'Привет, меня зовут<br><span class="text-copper italic">Ерлан</span>',
+        aboutP1: '<strong>Я занимаюсь керамогранитом в Астане уже 13 лет.</strong> За это время прошёл через всё: поставки, продажи, работу с клиентами, управление командой. Я знаю этот рынок изнутри — его возможности, его слабые места и то, чего в нём до сих пор не хватает.',
+        aboutP2: 'Несколько лет назад я заметил одну вещь: рынок разрознен. Одни продают материал, но не монтируют. Другие монтируют, но без своего материала. Клиент вынужден бегать между несколькими подрядчиками — и в итоге получает головную боль вместо результата. Я решил это исправить.',
+        aboutP3: '<strong>KERAMO BUILD — это компания полного цикла.</strong> Клиент приходит в наш шоурум, выбирает керамогранит, мы его нарезаем под его объект и монтируем на стены. Один договор, одна ответственность, один результат. Я уверен в этой модели — потому что 13 лет наблюдал, как рынок ждёт именно такого игрока.',
+        aboutP4: 'Сейчас я ищу единомышленника — человека, который разделяет мой взгляд на бизнес и хочет стать частью этой истории. Не просто вложить деньги, а стать настоящим акционером растущей компании. Я беру на себя всю операционку — ты получаешь пассивный доход и долю в бизнесе, который я строю с нуля, но с 13-летним опытом за спиной.',
+        aboutSignature: '— Ерлан, основатель KERAMO BUILD',
+        aboutCta: 'Хочу узнать об условиях',
+        aboutExpTitle: 'Лет опыта',
+        aboutExpSub: 'в сфере керамогранита',
         heroBadge: 'АСТАНА · КЕРАМОГРАНИТ · ПРОИЗВОДСТВО',
         heroTitle: 'Инвестируй в<br>производство<br><span class="text-copper italic">керамогранита</span>',
         heroSub: 'Возврат за 25&nbsp;месяцев. Затем 30% прибыли — навсегда.',
@@ -1207,6 +1406,43 @@
         .fromTo('#heroCTA', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.3');
     }
 
+    /* ========= ABOUT CAROUSEL ========= */
+    let aboutIndex = 0;
+    const aboutSlideCount = 10;
+    function aboutGoTo(i) {
+      aboutIndex = Math.max(0, Math.min(i, aboutSlideCount - 1));
+      const track = document.getElementById('aboutTrack');
+      if (track) track.style.transform = 'translateX(-' + (aboutIndex * 100) + '%)';
+      document.getElementById('aboutCurrent').textContent = aboutIndex + 1;
+      document.querySelectorAll('.about-dot').forEach((d, idx) => {
+        d.classList.toggle('active', idx === aboutIndex);
+      });
+    }
+    function aboutNext() { aboutGoTo(aboutIndex + 1 >= aboutSlideCount ? 0 : aboutIndex + 1); }
+    function aboutPrev() { aboutGoTo(aboutIndex - 1 < 0 ? aboutSlideCount - 1 : aboutIndex - 1); }
+    // Build dots
+    (function() {
+      const dotsEl = document.getElementById('aboutDots');
+      if (!dotsEl) return;
+      for (let i = 0; i < aboutSlideCount; i++) {
+        const d = document.createElement('div');
+        d.className = 'about-dot' + (i === 0 ? ' active' : '');
+        d.addEventListener('click', () => aboutGoTo(i));
+        dotsEl.appendChild(d);
+      }
+      // Touch swipe
+      const carousel = document.querySelector('.about-carousel');
+      if (!carousel) return;
+      let startX = 0;
+      carousel.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      carousel.addEventListener('touchend', e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) diff > 0 ? aboutNext() : aboutPrev();
+      }, { passive: true });
+      // Auto-play
+      setInterval(aboutNext, 5000);
+    })();
+
     /* ========= SCROLL ANIMATIONS ========= */
     function initScrollAnimations() {
       // Section titles
@@ -1290,6 +1526,26 @@
         { opacity: 0, y: 40, scale: 0.95 },
         { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: 'power3.out',
           scrollTrigger: { trigger: '.roi-block', start: 'top 85%' }
+        }
+      );
+
+      // About section
+      gsap.fromTo('.about-carousel-wrap',
+        { opacity: 0, x: -60 },
+        { opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+          scrollTrigger: { trigger: '#about', start: 'top 70%' }
+        }
+      );
+      gsap.fromTo('.about-text-block p',
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.15, ease: 'power3.out',
+          scrollTrigger: { trigger: '.about-text-block', start: 'top 80%' }
+        }
+      );
+      gsap.fromTo('.about-signature',
+        { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, duration: 0.7, ease: 'power3.out',
+          scrollTrigger: { trigger: '.about-signature', start: 'top 90%' }
         }
       );
 
