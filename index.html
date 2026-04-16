@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KERAMO BUILD — Керамогранит өндірісіне инвестиция</title>
+  <title id="pageTitle">KERAMO BUILD — Керамогранит өндірісіне инвестиция</title>
   <meta name="description" content="Астанада керамогранит өндірісіне инвестиция салыңыз. Инвестиция қайтарымы — 25 ай. Пайданың 30% — ай сайын.">
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -435,6 +435,9 @@
 </head>
 <body class="loading">
 
+  <div class="wipe-panel"></div>
+  <div class="wipe-panel"></div>
+
   <!-- Progress -->
   <div class="progress-bar" id="progressBar"></div>
 
@@ -447,8 +450,6 @@
     <div class="pre-line"></div>
     <div class="pre-flash"></div>
   </div>
-  <div class="wipe-panel"></div>
-  <div class="wipe-panel"></div>
 
   <!-- ===== HEADER ===== -->
   <header id="header" class="fixed top-0 left-0 right-0 z-50" style="transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;">
@@ -477,9 +478,9 @@
           <span data-i18n="headerCta">Өтінім қалдыру</span>
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/></svg>
         </a>
-        <div class="header-burger md:hidden" onclick="this.classList.toggle('open');document.getElementById('mobileMenu').classList.toggle('open')">
+        <button class="header-burger md:hidden" aria-label="Мәзір" aria-expanded="false" aria-controls="mobileMenu" onclick="this.classList.toggle('open');document.getElementById('mobileMenu').classList.toggle('open');this.setAttribute('aria-expanded',this.classList.contains('open'))">
           <span></span>
-        </div>
+        </button>
       </div>
     </div>
     <!-- Mobile menu -->
@@ -493,16 +494,22 @@
     </div>
   </header>
 
+  <main>
+
   <!-- ================================================================ -->
   <!-- HERO                                                             -->
   <!-- ================================================================ -->
   <section id="heroSection" class="stack-section min-h-screen flex items-center relative bg-bg overflow-hidden">
     <!-- Hero background image -->
-    <div class="absolute top-[10%] right-0 bottom-[10%] w-[55%] z-0">
-      <img src="images/logo-hero-fon3.png" alt="" class="w-full h-full object-cover object-right rounded-l-3xl" />
-      <div class="absolute inset-0" style="background: linear-gradient(to right, #141118 0%, rgba(20,17,24,0.4) 40%, transparent 100%);"></div>
+    <div class="absolute top-0 right-0 bottom-0 left-0 z-0 md:left-auto md:w-[55%] md:top-[10%] md:bottom-[10%]">
+      <picture>
+        <source srcset="images/logo-hero-fon3.webp" type="image/webp">
+        <img src="images/logo-hero-fon3.png" alt="KERAMO BUILD керамогранит" class="w-full h-full object-cover object-center md:object-right md:rounded-l-3xl" width="960" height="720" fetchpriority="high" />
+      </picture>
+      <div class="absolute inset-0 md:block" style="background: linear-gradient(to right, #141118 0%, rgba(20,17,24,0.4) 40%, transparent 100%);"></div>
       <div class="absolute inset-0" style="background: linear-gradient(to top, #141118 0%, transparent 25%);"></div>
       <div class="absolute inset-0" style="background: linear-gradient(to bottom, #141118 0%, transparent 25%);"></div>
+      <div class="absolute inset-0 md:hidden" style="background: rgba(20,17,24,0.5);"></div>
     </div>
 
     <div class="relative z-10 max-w-6xl mx-auto px-6 lg:px-10 py-32 md:py-0 w-full">
@@ -519,7 +526,7 @@
         </h1>
 
         <!-- Sub -->
-        <p id="heroSub" class="text-warm text-lg md:text-xl leading-relaxed mb-14 max-w-xl" style="font-weight:300; visibility:hidden;" data-i18n="heroSub">
+        <p id="heroSub" class="text-cream/90 md:text-warm text-lg md:text-xl leading-relaxed mb-14 max-w-xl" style="font-weight:300; visibility:hidden;" data-i18n="heroSub">
           Толық цикл: сату, кесу, монтаждау.<br>
           25&nbsp;айда қайтарым. Содан кейін пайданың 30% — мәңгілікке.
         </p>
@@ -528,17 +535,17 @@
         <div id="heroMetrics" class="flex flex-wrap gap-10 md:gap-16 mb-14" style="visibility:hidden;">
           <div>
             <span class="block font-serif text-4xl md:text-5xl text-cream2 counter-up" data-target="35" data-suffix=" млн ₸">0</span>
-            <span class="text-warm/50 text-xs uppercase tracking-[0.2em] mt-1 block" data-i18n="metricInvest">инвестиция</span>
+            <span class="text-warm/60 text-xs uppercase tracking-[0.2em] mt-1 block" data-i18n="metricInvest">инвестиция</span>
           </div>
           <div class="w-[1px] h-16 bg-cream/10 hidden md:block"></div>
           <div>
             <span class="block font-serif text-4xl md:text-5xl text-cream2 counter-up" data-target="25" data-suffix-kk=" ай" data-suffix-ru=" мес" data-suffix=" ай">0</span>
-            <span class="text-warm/50 text-xs uppercase tracking-[0.2em] mt-1 block" data-i18n="metricReturn">қайтарым</span>
+            <span class="text-warm/60 text-xs uppercase tracking-[0.2em] mt-1 block" data-i18n="metricReturn">қайтарым</span>
           </div>
           <div class="w-[1px] h-16 bg-cream/10 hidden md:block"></div>
           <div>
             <span class="block font-serif text-4xl md:text-5xl text-cream2 counter-up" data-target="30" data-suffix="%">0</span>
-            <span class="text-warm/50 text-xs uppercase tracking-[0.2em] mt-1 block" data-i18n="metricProfit">пайда</span>
+            <span class="text-warm/60 text-xs uppercase tracking-[0.2em] mt-1 block" data-i18n="metricProfit">пайда</span>
           </div>
         </div>
 
@@ -594,29 +601,33 @@
         <div class="lg:col-span-2 about-carousel-wrap">
           <div class="about-carousel">
             <!-- Arrows -->
-            <div class="about-arrow prev" onclick="aboutPrev()">
+            <div class="about-arrow prev" onclick="aboutPrev()" role="button" aria-label="Алдыңғы фото">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
             </div>
-            <div class="about-arrow next" onclick="aboutNext()">
+            <div class="about-arrow next" onclick="aboutNext()" role="button" aria-label="Келесі фото">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
             </div>
             <!-- Counter -->
             <div class="about-counter"><span id="aboutCurrent">1</span> / <span id="aboutTotal">8</span></div>
             <!-- Track -->
             <div class="about-track" id="aboutTrack">
-              <div class="about-slide"><img src="about/img2.PNG" alt="Ерлан — нысанда" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>2.jpg</p></div></div>'" /></div>
-              <div class="about-slide"><img src="about/img3.PNG" alt="Өндірістік цех" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>3.jpg</p></div></div>'" /></div>
-              <div class="about-slide"><img src="about/img4.PNG" alt="Дайын нәтиже" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>4.jpg</p></div></div>'" /></div>
-              <div class="about-slide"><img src="about/img5.jpeg" alt="Команда жұмыста" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>5.jpg</p></div></div>'" /></div>
-              <div class="about-slide"><img src="about/img7.jpeg" alt="Шоурум" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>6.jpg</p></div></div>'" /></div>
-              <div class="about-slide"><img src="about/img8.PNG" alt="Дейін/Кейін" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>7.jpg</p></div></div>'" /></div>
+              <div class="about-slide"><img src="about/img2.PNG" alt="Ерлан — нысанда" loading="lazy" width="600" height="800" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>2.jpg</p></div></div>'" /></div>
+              <div class="about-slide"><img src="about/img3.PNG" alt="Өндірістік цех" loading="lazy" width="600" height="800" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>3.jpg</p></div></div>'" /></div>
+              <div class="about-slide"><img src="about/img4.PNG" alt="Дайын нәтиже" loading="lazy" width="600" height="800" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>4.jpg</p></div></div>'" /></div>
+              <div class="about-slide"><img src="about/img5.jpeg" alt="Команда жұмыста" loading="lazy" width="600" height="800" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>5.jpg</p></div></div>'" /></div>
+              <div class="about-slide"><img src="about/img7.jpeg" alt="Шоурум" loading="lazy" width="600" height="800" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>6.jpg</p></div></div>'" /></div>
+              <div class="about-slide"><img src="about/img8.PNG" alt="Дейін/Кейін" loading="lazy" width="600" height="800" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>7.jpg</p></div></div>'" /></div>
               <!-- <div class="about-slide"><img src="about/img9.jpeg" alt="Клиентпен кездесу" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>8.jpg</p></div></div>'" /></div> -->
-              <div class="about-slide"><img src="about/img10.jpeg" alt="Жұмыс сапасы" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>9.jpg</p></div></div>'" /></div>
-              <div class="about-slide"><img src="about/img11.jpeg" alt="Ерлан жұмыс үстелінде" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>10.jpg</p></div></div>'" /></div>
+              <div class="about-slide"><img src="about/img10.jpeg" alt="Жұмыс сапасы" loading="lazy" width="600" height="800" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>9.jpg</p></div></div>'" /></div>
+              <div class="about-slide"><img src="about/img11.jpeg" alt="Ерлан жұмыс үстелінде" loading="lazy" width="600" height="800" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-s3 flex items-center justify-center\'><div class=\'text-center p-6\'><svg class=\'w-10 h-10 text-copper/20 mx-auto mb-2\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-xs\'>10.jpg</p></div></div>'" /></div>
             </div>
           </div>
           <!-- Dots -->
           <div class="about-dots" id="aboutDots"></div>
+          <p class="text-warm/40 text-[11px] text-center mt-2 md:hidden flex items-center justify-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>
+            <span data-i18n="swipeHint">Свайп жасаңыз</span>
+          </p>
 
           <!-- Experience badge below carousel -->
           <div class="mt-8 flex items-center gap-4 p-5 rounded-xl bg-cream/[0.03] border border-cream/[0.06]">
@@ -650,7 +661,7 @@
           <!-- Signature -->
           <div class="mt-10 pt-8 border-t border-cream/[0.06] flex items-center gap-5">
             <div class="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-copper/20 ring-offset-2 ring-offset-s2">
-              <img src="about/avatar2.png" alt="Ерлан" class="w-full h-full object-cover" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-copper/10 flex items-center justify-center\'><svg class=\'w-7 h-7 text-copper\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.5\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z\'/></svg></div>'" />
+              <img src="about/avatar2.png" alt="Ерлан" class="w-full h-full object-cover" loading="lazy" width="56" height="56" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'w-full h-full bg-copper/10 flex items-center justify-center\'><svg class=\'w-7 h-7 text-copper\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.5\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z\'/></svg></div>'" />
             </div>
             <div>
               <p class="about-signature" data-i18n="aboutSignature">— Ерлан, KERAMO BUILD негізін қалаушы</p>
@@ -784,10 +795,10 @@
       <!-- Photo: showroom / workshop -->
       <div class="grid md:grid-cols-2 gap-5 mb-20">
         <div class="rounded-2xl overflow-hidden border border-cream/[0.06] aspect-[4/3] bg-s3 flex items-center justify-center">
-          <img src="images/showroom.png" alt="Шоурум KERAMO BUILD" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='<div class=\'text-center p-8\'><svg class=\'w-12 h-12 text-copper/30 mx-auto mb-3\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-sm\'>showroom.png</p></div>'" />
+          <img src="images/showroom.png" alt="Шоурум KERAMO BUILD" class="w-full h-full object-cover" loading="lazy" width="800" height="600" onerror="this.parentElement.innerHTML='<div class=\'text-center p-8\'><svg class=\'w-12 h-12 text-copper/30 mx-auto mb-3\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-sm\'>showroom.png</p></div>'" />
         </div>
         <div class="rounded-2xl overflow-hidden border border-cream/[0.06] aspect-[4/3] bg-s3 flex items-center justify-center">
-          <img src="images/workshop.png" alt="Цех нарезки керамогранита" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='<div class=\'text-center p-8\'><svg class=\'w-12 h-12 text-copper/30 mx-auto mb-3\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-sm\'>workshop.png</p></div>'" />
+          <img src="images/workshop.png" alt="Цех нарезки керамогранита" class="w-full h-full object-cover" loading="lazy" width="800" height="600" onerror="this.parentElement.innerHTML='<div class=\'text-center p-8\'><svg class=\'w-12 h-12 text-copper/30 mx-auto mb-3\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-sm\'>workshop.png</p></div>'" />
         </div>
       </div>
 
@@ -795,15 +806,15 @@
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
         <div class="metric-card bg-s2 rounded-xl p-8 text-center border border-cream/[0.04] hover:border-copper/15 transition-all duration-500 hover:-translate-y-1">
           <span class="block font-serif text-3xl md:text-4xl text-cream2 mb-2 counter-up" data-target="320" data-suffix=" 000 ₸">0</span>
-          <span class="text-warm/40 text-xs font-semibold uppercase tracking-[0.2em]" data-i18n="metricAvgCheck">Орташа чек</span>
+          <span class="text-warm/55 text-xs font-semibold uppercase tracking-[0.2em]" data-i18n="metricAvgCheck">Орташа чек</span>
         </div>
         <div class="metric-card bg-s2 rounded-xl p-8 text-center border border-cream/[0.04] hover:border-copper/15 transition-all duration-500 hover:-translate-y-1">
           <span class="block font-serif text-3xl md:text-4xl text-cream2 mb-2 counter-up" data-target="47" data-suffix="%">0</span>
-          <span class="text-warm/40 text-xs font-semibold uppercase tracking-[0.2em]" data-i18n="metricMargin">Тапсырыс маржасы</span>
+          <span class="text-warm/55 text-xs font-semibold uppercase tracking-[0.2em]" data-i18n="metricMargin">Тапсырыс маржасы</span>
         </div>
         <div class="metric-card bg-s2 rounded-xl p-8 text-center border border-cream/[0.04] hover:border-copper/15 transition-all duration-500 hover:-translate-y-1">
           <span class="block font-serif text-3xl md:text-4xl text-cream2 mb-2 counter-up" data-target="40" data-suffix-kk=" тапсырыс" data-suffix-ru=" заказов" data-suffix=" тапсырыс">0</span>
-          <span class="text-warm/40 text-xs font-semibold uppercase tracking-[0.2em]" data-i18n="metricGoal">Айлық мақсат</span>
+          <span class="text-warm/55 text-xs font-semibold uppercase tracking-[0.2em]" data-i18n="metricGoal">Айлық мақсат</span>
         </div>
       </div>
 
@@ -878,21 +889,21 @@
             <svg class="w-7 h-7 text-copper" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
           <h4 class="font-serif text-lg text-cream2 mb-2" data-i18n="offerAdv1Title">Бір реттік инвестиция</h4>
-          <p class="text-warm/50 text-sm" data-i18n="offerAdv1Desc">Бір рет саласың — табыс мерзімсіз түседі</p>
+          <p class="text-warm/60 text-sm" data-i18n="offerAdv1Desc">Бір рет саласың — табыс мерзімсіз түседі</p>
         </div>
         <div class="offer-adv text-center p-6">
           <div class="w-14 h-14 bg-copper/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
             <svg class="w-7 h-7 text-copper" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
           </div>
           <h4 class="font-serif text-lg text-cream2 mb-2" data-i18n="offerAdv2Title">Заңдық қорғау</h4>
-          <p class="text-warm/50 text-sm" data-i18n="offerAdv2Desc">Шарт, ТОО-дағы үлес, ашық есептілік</p>
+          <p class="text-warm/60 text-sm" data-i18n="offerAdv2Desc">Шарт, ТОО-дағы үлес, ашық есептілік</p>
         </div>
         <div class="offer-adv text-center p-6">
           <div class="w-14 h-14 bg-copper/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
             <svg class="w-7 h-7 text-copper" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/></svg>
           </div>
           <h4 class="font-serif text-lg text-cream2 mb-2" data-i18n="offerAdv3Title">Пассивті табыс</h4>
-          <p class="text-warm/50 text-sm" data-i18n="offerAdv3Desc">Салымды қайтарған соң айына 750 000 ₸-ден</p>
+          <p class="text-warm/60 text-sm" data-i18n="offerAdv3Desc">Салымды қайтарған соң айына 750 000 ₸-ден</p>
         </div>
       </div>
 
@@ -909,11 +920,11 @@
           <span data-i18n="offerCta">Тең іесі болғым келеді</span>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/></svg>
         </a>
-        <p class="text-warm/30 text-xs mt-5 max-w-sm mx-auto" data-i18n="offerCtaSub">Байланыс қалдыр — толық бизнес-жоспар жібереміз және барлық сұраққа жауап береміз</p>
+        <p class="text-warm/50 text-xs mt-5 max-w-sm mx-auto" data-i18n="offerCtaSub">Байланыс қалдыр — толық бизнес-жоспар жібереміз және барлық сұраққа жауап береміз</p>
       </div>
 
       <!-- Disclaimer -->
-      <p class="text-warm/20 text-[11px] text-center mt-16 max-w-lg mx-auto leading-relaxed" data-i18n="offerDisclaimer">
+      <p class="text-warm/40 text-[11px] text-center mt-16 max-w-lg mx-auto leading-relaxed" data-i18n="offerDisclaimer">
         Көрсеткіштер қаржылық болжамның негізгі сценарийіне негізделген. Нақты нәтижелер нарық жағдайларына байланысты. Инвестициялау тәуекелдермен байланысты.
       </p>
     </div>
@@ -1022,7 +1033,7 @@
       <div class="max-w-5xl mb-16" id="investChartWrap">
         <div class="text-center mb-8">
           <h3 class="font-serif text-xl md:text-2xl text-cream2 mb-2" data-i18n="chartTitle">Инвестиция динамикасы</h3>
-          <p class="text-warm/50 text-sm" data-i18n="chartSubtitle">35 млн ₸ — қайтару мен пайда графигі (млн ₸)</p>
+          <p class="text-warm/60 text-sm" data-i18n="chartSubtitle">35 млн ₸ — қайтару мен пайда графигі (млн ₸)</p>
         </div>
         <div class="glass rounded-2xl p-5 md:p-8 border border-cream/[0.06]">
           <canvas id="investChart" height="320"></canvas>
@@ -1037,10 +1048,10 @@
       <!-- Photo: result -->
       <div class="grid md:grid-cols-2 gap-5 max-w-5xl mb-12">
         <div class="rounded-2xl overflow-hidden border border-cream/[0.06] aspect-[4/3] bg-s3 flex items-center justify-center">
-          <img src="images/result.png" alt="Готовая работа с керамогранитом" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='<div class=\'text-center p-8\'><svg class=\'w-12 h-12 text-copper/30 mx-auto mb-3\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-sm\'>result.png</p></div>'" />
+          <img src="images/result.png" alt="Готовая работа с керамогранитом" class="w-full h-full object-cover" loading="lazy" width="800" height="600" onerror="this.parentElement.innerHTML='<div class=\'text-center p-8\'><svg class=\'w-12 h-12 text-copper/30 mx-auto mb-3\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-sm\'>result.png</p></div>'" />
         </div>
         <div class="rounded-2xl overflow-hidden border border-cream/[0.06] aspect-[4/3] bg-s3 flex items-center justify-center">
-          <img src="images/result2.png" alt="Интерьер с керамогранитом" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='<div class=\'text-center p-8\'><svg class=\'w-12 h-12 text-copper/30 mx-auto mb-3\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-sm\'>result2.png</p></div>'" />
+          <img src="images/result2.png" alt="Интерьер с керамогранитом" class="w-full h-full object-cover" loading="lazy" width="800" height="600" onerror="this.parentElement.innerHTML='<div class=\'text-center p-8\'><svg class=\'w-12 h-12 text-copper/30 mx-auto mb-3\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z\'/></svg><p class=\'text-warm/30 text-sm\'>result2.png</p></div>'" />
         </div>
       </div>
 
@@ -1053,7 +1064,7 @@
           <p class="font-serif text-xl md:text-2xl text-copper italic mb-2" data-i18n="roiSub">
             Бизнестің үлесі — мәңгілікке.
           </p>
-          <p class="text-warm/30 text-xs mt-8 max-w-md mx-auto" data-i18n="roiDisclaimer">
+          <p class="text-warm/50 text-xs mt-8 max-w-md mx-auto" data-i18n="roiDisclaimer">
             Көрсеткіштер бизнес-жоспардың негізгі сценарийіне негізделген. Нақты нәтижелер өзгеруі мүмкін.
           </p>
         </div>
@@ -1082,20 +1093,20 @@
         <div class="glass rounded-2xl p-8 md:p-10">
           <div class="space-y-5 mb-8">
             <div>
-              <label for="name" class="block text-xs font-medium text-warm/50 mb-2 uppercase tracking-wider" data-i18n="formLabelName">Атыңыз</label>
+              <label for="name" class="block text-xs font-medium text-warm/60 mb-2 uppercase tracking-wider" data-i18n="formLabelName">Атыңыз</label>
               <input type="text" id="name" name="name" required autocomplete="name" placeholder="Атыңыз кім?" data-i18n-placeholder="formPlaceholderName"
-                class="input-warm w-full px-5 py-4 rounded-lg bg-cream/[0.03] border border-cream/[0.08] text-cream placeholder:text-warm/20 text-base transition-all">
+                class="input-warm w-full px-5 py-4 rounded-lg bg-cream/[0.03] border border-cream/[0.08] text-cream placeholder:text-warm/40 text-base transition-all">
             </div>
             <div>
-              <label for="phone" class="block text-xs font-medium text-warm/50 mb-2 uppercase tracking-wider" data-i18n="formLabelPhone">Телефон</label>
-              <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="+7 (___) ___-__-__"
-                class="input-warm w-full px-5 py-4 rounded-lg bg-cream/[0.03] border border-cream/[0.08] text-cream placeholder:text-warm/20 text-base transition-all">
+              <label for="phone" class="block text-xs font-medium text-warm/60 mb-2 uppercase tracking-wider" data-i18n="formLabelPhone">Телефон</label>
+              <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="+7 (___) ___-__-__" inputmode="tel"
+                class="input-warm w-full px-5 py-4 rounded-lg bg-cream/[0.03] border border-cream/[0.08] text-cream placeholder:text-warm/40 text-base transition-all">
             </div>
           </div>
           <button type="submit" class="btn-warm w-full text-white font-semibold text-base px-8 py-4 rounded-lg" data-i18n="formBtn">
             Өтінім жіберу
           </button>
-          <p class="text-center text-warm/25 text-xs mt-5" data-i18n="formPrivacy">Біз мәліметтерді үшінші тұлғаларға бермейміз. 24 сағат ішінде жауап береміз.</p>
+          <p class="text-center text-warm/45 text-xs mt-5" data-i18n="formPrivacy">Біз мәліметтерді үшінші тұлғаларға бермейміз. 24 сағат ішінде жауап береміз.</p>
         </div>
       </form>
 
@@ -1111,13 +1122,15 @@
     </div>
   </section>
 
+  </main>
+
   <!-- Footer -->
   <footer class="relative z-30 bg-bg py-8 border-t border-cream/[0.04]">
     <div class="max-w-6xl mx-auto px-6 lg:px-10 flex flex-col md:flex-row items-center justify-between gap-3">
-      <a href="#" class="text-warm/40 font-serif text-lg tracking-wide hover:text-cream transition-colors">
-        KERAMO <span class="text-copper/50">BUILD</span>
+      <a href="#" class="text-warm/55 font-serif text-lg tracking-wide hover:text-cream transition-colors">
+        KERAMO <span class="text-copper/60">BUILD</span>
       </a>
-      <p class="text-warm/20 text-sm">&copy; 2026 KERAMO BUILD</p>
+      <p class="text-warm/40 text-sm">&copy; 2026 KERAMO BUILD</p>
     </div>
   </footer>
 
@@ -1146,6 +1159,7 @@
         aboutCta: 'Шарттарды білгім келеді',
         aboutExpTitle: 'Жыл тәжірибе',
         aboutExpSub: 'керамогранит саласында',
+        swipeHint: 'Свайп жасаңыз',
         heroBadge: 'АСТАНА · КЕРАМОГРАНИТ · ӨНДІРІС',
         heroTitle: 'Керамогранит<br>өндірісіне<br><span class="text-copper italic">инвестиция сал</span>',
         heroSub: '25&nbsp;айда қайтарым. Содан кейін пайданың 30% — мәңгілікке.',
@@ -1247,6 +1261,7 @@
         aboutCta: 'Хочу узнать об условиях',
         aboutExpTitle: 'Лет опыта',
         aboutExpSub: 'в сфере керамогранита',
+        swipeHint: 'Свайпните',
         heroBadge: 'АСТАНА · КЕРАМОГРАНИТ · ПРОИЗВОДСТВО',
         heroTitle: 'Инвестируй в<br>производство<br><span class="text-copper italic">керамогранита</span>',
         heroSub: 'Возврат за 25&nbsp;месяцев. Затем 30% прибыли — навсегда.',
@@ -1354,6 +1369,13 @@
         const suffix = el.getAttribute('data-suffix-' + lang);
         if (suffix !== null) el.dataset.currentSuffix = suffix;
       });
+      // Update page title
+      const titles = { kk: 'KERAMO BUILD — Керамогранит өндірісіне инвестиция', ru: 'KERAMO BUILD — Инвестиции в производство керамогранита' };
+      document.title = titles[lang] || titles.kk;
+      // Update meta description
+      const descs = { kk: 'Астанада керамогранит өндірісіне инвестиция салыңыз. Инвестиция қайтарымы — 25 ай. Пайданың 30% — ай сайын.', ru: 'Инвестируйте в производство керамогранита в Астане. Возврат инвестиций — 25 месяцев. 30% прибыли — ежемесячно.' };
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) metaDesc.content = descs[lang] || descs.kk;
       localStorage.setItem('keramo-lang', lang);
       // Reinit chart with new language labels
       const oldChart = Chart.getChart('investChart');
@@ -1765,8 +1787,9 @@
               grid: { color: 'rgba(232,220,200,0.04)', drawBorder: false },
               ticks: {
                 color: 'rgba(155,143,128,0.5)',
-                font: { family: 'Inter', size: 11 },
-                maxTicksLimit: 10,
+                font: { family: 'Inter', size: window.innerWidth < 640 ? 9 : 11 },
+                maxTicksLimit: window.innerWidth < 640 ? 6 : 10,
+                maxRotation: window.innerWidth < 640 ? 0 : 45,
               },
               border: { color: 'rgba(232,220,200,0.08)' }
             },
@@ -1774,7 +1797,7 @@
               grid: { color: 'rgba(232,220,200,0.04)', drawBorder: false },
               ticks: {
                 color: 'rgba(155,143,128,0.5)',
-                font: { family: 'Inter', size: 11 },
+                font: { family: 'Inter', size: window.innerWidth < 640 ? 9 : 11 },
                 callback: function(v) { return v + ' млн'; }
               },
               border: { color: 'rgba(232,220,200,0.08)' },
@@ -1831,7 +1854,9 @@
     }
 
     function closeMobileMenu() {
-      document.querySelector('.header-burger')?.classList.remove('open');
+      const burger = document.querySelector('.header-burger');
+      burger?.classList.remove('open');
+      burger?.setAttribute('aria-expanded', 'false');
       document.getElementById('mobileMenu')?.classList.remove('open');
     }
 
@@ -1886,6 +1911,30 @@
         }});
       });
     }
+
+    /* ========= PHONE MASK ========= */
+    (function() {
+      const ph = document.getElementById('phone');
+      if (!ph) return;
+      ph.addEventListener('input', function(e) {
+        let v = ph.value.replace(/\D/g, '');
+        if (v.startsWith('8')) v = '7' + v.slice(1);
+        if (!v.startsWith('7')) v = '7' + v;
+        v = v.slice(0, 11);
+        let f = '+7';
+        if (v.length > 1) f += ' (' + v.slice(1, 4);
+        if (v.length >= 4) f += ') ' + v.slice(4, 7);
+        if (v.length >= 7) f += '-' + v.slice(7, 9);
+        if (v.length >= 9) f += '-' + v.slice(9, 11);
+        ph.value = f;
+      });
+      ph.addEventListener('focus', function() {
+        if (!ph.value) ph.value = '+7';
+      });
+      ph.addEventListener('blur', function() {
+        if (ph.value === '+7' || ph.value === '+7 (') ph.value = '';
+      });
+    })();
   </script>
 </body>
 </html>
